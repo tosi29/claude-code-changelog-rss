@@ -21,6 +21,11 @@ jobs:
       - name: Install dependencies
         run: uv sync
 
+      - name: Generate RSS Feed
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: uv run python main.py
+
       - name: Prepare for deployment
         run: |
           mkdir public
