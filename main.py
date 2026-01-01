@@ -206,6 +206,9 @@ def main():
     
     print(f"Found {len(versions)} versions.")
     
+    # Sort by date
+    versions.sort(key=lambda x: x['date'] or "")
+    
     print("Generating RSS feed...")
     generate_rss(versions)
     print("Done!")
