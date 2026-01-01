@@ -183,8 +183,8 @@ def generate_rss(versions):
         fe.link(href=link_url)
         fe.description(v['description'])
         
-        # Set ID to be unique
-        fe.id(link_url)
+        # Set GUID to be unique and a permalink
+        fe.guid(link_url, permalink=True)
         
         if v['date']:
             # Parse ISO date string to datetime with timezone
