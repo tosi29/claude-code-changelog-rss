@@ -7,7 +7,14 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 12 Jan 2026 00:15:47 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 13 Jan 2026 00:12:48 +0000</lastBuildDate>
+    <item>
+      <title>v2.1.5</title>
+      <link>https://github.com/anthropics/claude-code/blob/a856c62014f8d1cb24bfc19be94f170dae96ea4b/CHANGELOG.md</link>
+      <description>- Added `CLAUDE_CODE_TMPDIR` environment variable to override the temp directory used for internal temp files, useful for environments with custom temp directory requirements</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/a856c62014f8d1cb24bfc19be94f170dae96ea4b/CHANGELOG.md</guid>
+      <pubDate>Mon, 12 Jan 2026 18:48:06 +0000</pubDate>
+    </item>
     <item>
       <title>v2.1.4</title>
       <link>https://github.com/anthropics/claude-code/blob/0359f24538eae61e0ef6ac6220e8a861811fe1bb/CHANGELOG.md</link>
