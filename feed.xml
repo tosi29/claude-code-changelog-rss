@@ -7,12 +7,26 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 16 Jan 2026 00:15:16 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 17 Jan 2026 00:14:26 +0000</lastBuildDate>
+    <item>
+      <title>v2.1.9</title>
+      <link>https://github.com/anthropics/claude-code/blob/5a91286a82b5a113e1f32159a6ed55b0c54007e1/CHANGELOG.md</link>
+      <description>- Added `auto:N` syntax for configuring the MCP tool search auto-enable threshold, where N is the context window percentage (0-100)
+- Added `plansDirectory` setting to customize where plan files are stored
+- Added external editor support (Ctrl+G) in AskUserQuestion "Other" input field
+- Added session URL attribution to commits and PRs created from web sessions
+- Added support for `PreToolUse` hooks to return `additionalContext` to the model
+- Added `${CLAUDE_SESSION_ID}` string substitution for skills to access the current session ID
+- Fixed long sessions with parallel tool calls failing with an API error about orphan tool_result blocks
+- Fixed MCP server reconnection hanging when cached connection promise never resolves
+- Fixed Ctrl+Z suspend not working in terminals using Kitty keyboard protocol (Ghostty, iTerm2, kitty, WezTerm)</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/5a91286a82b5a113e1f32159a6ed55b0c54007e1/CHANGELOG.md</guid>
+      <pubDate>Fri, 16 Jan 2026 02:19:08 +0000</pubDate>
+    </item>
     <item>
       <title>v2.1.7</title>
       <link>https://github.com/anthropics/claude-code/blob/6a2936ab79c01e4f078105584f8cae521e7851dc/CHANGELOG.md</link>
-      <description>- Added customizable keyboard shortcuts via `~/.claude/keybindings.json`. Run `/keybindings` to get started. Learn more at https://code.claude.com/docs/en/keybindings
-- Added `showTurnDuration` setting to hide turn duration messages (e.g., "Cooked for 1m 6s")
+      <description>- Added `showTurnDuration` setting to hide turn duration messages (e.g., "Cooked for 1m 6s")
 - Added ability to provide feedback when accepting permission prompts
 - Added inline display of agent's final response in task notifications, making it easier to see results without reading the full transcript file
 - Fixed security vulnerability where wildcard permission rules could match compound commands containing shell operators
