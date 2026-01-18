@@ -7,7 +7,34 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 17 Jan 2026 00:14:26 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 18 Jan 2026 00:16:38 +0000</lastBuildDate>
+    <item>
+      <title>v2.1.12</title>
+      <link>https://github.com/anthropics/claude-code/blob/74cc597eb5c1a604e955ce97e7e3b82524f1062c/CHANGELOG.md</link>
+      <description>- Fixed message rendering bug</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/74cc597eb5c1a604e955ce97e7e3b82524f1062c/CHANGELOG.md</guid>
+      <pubDate>Sat, 17 Jan 2026 16:17:56 +0000</pubDate>
+    </item>
+    <item>
+      <title>v2.1.10</title>
+      <link>https://github.com/anthropics/claude-code/blob/923d72749265a208dec86247651b8df31fc92477/CHANGELOG.md</link>
+      <description>- Added new `Setup` hook event that can be triggered via `--init`, `--init-only`, or `--maintenance` CLI flags for repository setup and maintenance operations
+- Added keyboard shortcut 'c' to copy OAuth URL when browser doesn't open automatically during login
+- Fixed a crash when running bash commands containing heredocs with JavaScript template literals like `${index + 1}`
+- Improved startup to capture keystrokes typed before the REPL is fully ready
+- Improved file suggestions to show as removable attachments instead of inserting text when accepted
+- [VSCode] Added install count display to plugin listings
+- [VSCode] Added trust warning when installing plugins</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/923d72749265a208dec86247651b8df31fc92477/CHANGELOG.md</guid>
+      <pubDate>Sat, 17 Jan 2026 01:38:55 +0000</pubDate>
+    </item>
+    <item>
+      <title>v2.1.11</title>
+      <link>https://github.com/anthropics/claude-code/blob/923d72749265a208dec86247651b8df31fc92477/CHANGELOG.md</link>
+      <description>- Fixed excessive MCP connection requests for HTTP/SSE transports</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/923d72749265a208dec86247651b8df31fc92477/CHANGELOG.md</guid>
+      <pubDate>Sat, 17 Jan 2026 01:38:55 +0000</pubDate>
+    </item>
     <item>
       <title>v2.1.9</title>
       <link>https://github.com/anthropics/claude-code/blob/5a91286a82b5a113e1f32159a6ed55b0c54007e1/CHANGELOG.md</link>
