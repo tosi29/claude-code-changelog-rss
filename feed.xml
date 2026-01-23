@@ -7,7 +7,27 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 22 Jan 2026 00:16:05 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 23 Jan 2026 00:15:56 +0000</lastBuildDate>
+    <item>
+      <title>v2.1.17</title>
+      <link>https://github.com/anthropics/claude-code/blob/10e6348e77d41af005e138f4c476e41b0762facf/CHANGELOG.md</link>
+      <description>- Fixed crashes on processors without AVX instruction support</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/10e6348e77d41af005e138f4c476e41b0762facf/CHANGELOG.md</guid>
+      <pubDate>Thu, 22 Jan 2026 21:45:53 +0000</pubDate>
+    </item>
+    <item>
+      <title>v2.1.16</title>
+      <link>https://github.com/anthropics/claude-code/blob/e431f5b4964748b4ef7ad8bf72e93d0736eda6d8/CHANGELOG.md</link>
+      <description>- Added new task management system, including new capabilities like dependency tracking
+- [VSCode] Added native plugin management support
+- [VSCode] Added ability for OAuth users to browse and resume remote Claude sessions from the Sessions dialog
+- Fixed out-of-memory crashes when resuming sessions with heavy subagent usage
+- Fixed an issue where the "context remaining" warning was not hidden after running `/compact`
+- Fixed session titles on the resume screen not respecting the user's language setting
+- [IDE] Fixed a race condition on Windows where the Claude Code sidebar view container would not appear on start</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/e431f5b4964748b4ef7ad8bf72e93d0736eda6d8/CHANGELOG.md</guid>
+      <pubDate>Thu, 22 Jan 2026 20:08:52 +0000</pubDate>
+    </item>
     <item>
       <title>v2.1.15</title>
       <link>https://github.com/anthropics/claude-code/blob/052a1317c02ff4ecca15a8f25a885ab1de284516/CHANGELOG.md</link>
