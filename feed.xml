@@ -7,7 +7,30 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 28 Jan 2026 00:15:48 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 29 Jan 2026 00:17:33 +0000</lastBuildDate>
+    <item>
+      <title>v2.1.22</title>
+      <link>https://github.com/anthropics/claude-code/blob/73eddfd6404fb04e2899413e3a339513c7ebb76f/CHANGELOG.md</link>
+      <description>- Fixed structured outputs for non-interactive (-p) mode</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/73eddfd6404fb04e2899413e3a339513c7ebb76f/CHANGELOG.md</guid>
+      <pubDate>Wed, 28 Jan 2026 06:59:20 +0000</pubDate>
+    </item>
+    <item>
+      <title>v2.1.21</title>
+      <link>https://github.com/anthropics/claude-code/blob/8c48d2f508be0b63cbb5b5cd6b71d700d71c5b66/CHANGELOG.md</link>
+      <description>- Added support for full-width (zenkaku) number input from Japanese IME in option selection prompts
+- Fixed shell completion cache files being truncated on exit
+- Fixed API errors when resuming sessions that were interrupted during tool execution
+- Fixed auto-compact triggering too early on models with large output token limits
+- Fixed task IDs potentially being reused after deletion
+- Fixed file search not working in VS Code extension on Windows
+- Improved read/search progress indicators to show "Reading…" while in progress and "Read" when complete
+- Improved Claude to prefer file operation tools (Read, Edit, Write) over bash equivalents (cat, sed, awk)
+- [VSCode] Added automatic Python virtual environment activation, ensuring `python` and `pip` commands use the correct interpreter (configurable via `claudeCode.usePythonEnvironment` setting)
+- [VSCode] Fixed message action buttons having incorrect background colors</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/8c48d2f508be0b63cbb5b5cd6b71d700d71c5b66/CHANGELOG.md</guid>
+      <pubDate>Wed, 28 Jan 2026 02:24:46 +0000</pubDate>
+    </item>
     <item>
       <title>v2.1.20</title>
       <link>https://github.com/anthropics/claude-code/blob/9f6b6d17de97d19a00bc202c77310753eeb8d35b/CHANGELOG.md</link>
