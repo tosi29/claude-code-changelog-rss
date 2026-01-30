@@ -7,7 +7,31 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 29 Jan 2026 00:17:33 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 30 Jan 2026 00:17:48 +0000</lastBuildDate>
+    <item>
+      <title>v2.1.25</title>
+      <link>https://github.com/anthropics/claude-code/blob/38f1f930522d9bbd7ef6e15c4d3b8dbd5f1f277b/CHANGELOG.md</link>
+      <description>- Fixed beta header validation error for gateway users on Bedrock and Vertex, ensuring `CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS=1` avoids the error</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/38f1f930522d9bbd7ef6e15c4d3b8dbd5f1f277b/CHANGELOG.md</guid>
+      <pubDate>Thu, 29 Jan 2026 21:12:53 +0000</pubDate>
+    </item>
+    <item>
+      <title>v2.1.23</title>
+      <link>https://github.com/anthropics/claude-code/blob/cf98f1d9430c3935397ea50cb28fb097f9ada1bb/CHANGELOG.md</link>
+      <description>- Added customizable spinner verbs setting (`spinnerVerbs`)
+- Fixed mTLS and proxy connectivity for users behind corporate proxies or using client certificates
+- Fixed per-user temp directory isolation to prevent permission conflicts on shared systems
+- Fixed a race condition that could cause 400 errors when prompt caching scope was enabled
+- Fixed pending async hooks not being cancelled when headless streaming sessions ended
+- Fixed tab completion not updating the input field when accepting a suggestion
+- Fixed ripgrep search timeouts silently returning empty results instead of reporting errors
+- Improved terminal rendering performance with optimized screen data layout
+- Changed Bash commands to show timeout duration alongside elapsed time
+- Changed merged pull requests to show a purple status indicator in the prompt footer
+- [IDE] Fixed model options displaying incorrect region strings for Bedrock users in headless mode</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/cf98f1d9430c3935397ea50cb28fb097f9ada1bb/CHANGELOG.md</guid>
+      <pubDate>Thu, 29 Jan 2026 01:09:14 +0000</pubDate>
+    </item>
     <item>
       <title>v2.1.22</title>
       <link>https://github.com/anthropics/claude-code/blob/73eddfd6404fb04e2899413e3a339513c7ebb76f/CHANGELOG.md</link>
@@ -472,7 +496,7 @@
 - Added loading indicator when resuming conversations for better feedback
 - Fixed `/context` command not respecting custom system prompts in non-interactive mode
 - Fixed order of consecutive Ctrl+K lines when pasting with Ctrl+Y
-- Improved @ mention file suggestion speed (~3x faster in git repositories)
+- Improved @ mention file suggestion speed (~3× faster in git repositories)
 - Improved file suggestion performance in repos with `.ignore` or `.rgignore` files
 - Improved settings validation errors to be more prominent
 - Changed thinking toggle from Tab to Alt+T to avoid accidental triggers</description>
