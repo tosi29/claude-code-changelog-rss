@@ -7,7 +7,14 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 31 Jan 2026 00:17:16 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 01 Feb 2026 00:20:40 +0000</lastBuildDate>
+    <item>
+      <title>v2.1.29</title>
+      <link>https://github.com/anthropics/claude-code/blob/f298d940faf08deec44f7a7a4d382c673450a302/CHANGELOG.md</link>
+      <description>- Fixed startup performance issues when resuming sessions that have `saved_hook_context`</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/f298d940faf08deec44f7a7a4d382c673450a302/CHANGELOG.md</guid>
+      <pubDate>Sat, 31 Jan 2026 23:37:08 +0000</pubDate>
+    </item>
     <item>
       <title>v2.1.27</title>
       <link>https://github.com/anthropics/claude-code/blob/5862adf6419a1b727aa6e0bafd4d767bafde6d2e/CHANGELOG.md</link>
@@ -17,7 +24,6 @@
 - Sessions are now automatically linked to PRs when created via `gh pr create`
 - Fixed /context command not displaying colored output
 - Fixed status bar duplicating background task indicator when PR status was shown
-- Permissions now respect content-level `ask` over tool-level `allow`. Previously `allow: ["Bash"], ask: ["Bash(rm *)"]` allowed all bash commands, but will now permission prompt for `rm`.
 - Windows: Fixed bash command execution failing for users with `.bashrc` files
 - Windows: Fixed console windows flashing when spawning child processes
 - VSCode: Fixed OAuth token expiration causing 401 errors after extended sessions</description>
