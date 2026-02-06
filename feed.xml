@@ -7,7 +7,25 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 05 Feb 2026 00:19:26 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 06 Feb 2026 00:17:22 +0000</lastBuildDate>
+    <item>
+      <title>v2.1.32</title>
+      <link>https://github.com/anthropics/claude-code/blob/d7e3cfb31cef9aa97acf49d8f6ab89c36e877e66/CHANGELOG.md</link>
+      <description>- Claude Opus 4.6 is now available!
+- Added research preview agent teams feature for multi-agent collaboration (token-intensive feature, requires setting CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1)
+- Claude now automatically records and recalls memories as it works
+- Added "Summarize from here" to the message selector, allowing partial conversation summarization.
+- Skills defined in `.claude/skills/` within additional directories (`--add-dir`) are now loaded automatically.
+- Fixed `@` file completion showing incorrect relative paths when running from a subdirectory
+- Updated --resume to re-use --agent value specified in previous conversation by default.
+- Fixed: Bash tool no longer throws "Bad substitution" errors when heredocs contain JavaScript template literals like `${index + 1}`, which previously interrupted tool execution
+- Skill character budget now scales with context window (2% of context), so users with larger context windows can see more skill descriptions without truncation
+- Fixed Thai/Lao spacing vowels (สระ า, ำ) not rendering correctly in the input field
+- VSCode: Fixed slash commands incorrectly being executed when pressing Enter with preceding text in the input field
+- VSCode: Added spinner when loading past conversations list</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/d7e3cfb31cef9aa97acf49d8f6ab89c36e877e66/CHANGELOG.md</guid>
+      <pubDate>Thu, 05 Feb 2026 17:47:04 +0000</pubDate>
+    </item>
     <item>
       <title>v2.1.31</title>
       <link>https://github.com/anthropics/claude-code/blob/bd78b216ed563e57767901dcdd80f9a7750434c9/CHANGELOG.md</link>
