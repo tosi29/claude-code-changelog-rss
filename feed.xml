@@ -7,7 +7,31 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 10 Feb 2026 00:23:30 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 11 Feb 2026 00:23:50 +0000</lastBuildDate>
+    <item>
+      <title>v2.1.39</title>
+      <link>https://github.com/anthropics/claude-code/blob/be5d08fe5f8bcff6c1058fd4ddfce8cc3a32daa3/CHANGELOG.md</link>
+      <description>- Improved terminal rendering performance
+- Fixed fatal errors being swallowed instead of displayed
+- Fixed process hanging after session close
+- Fixed character loss at terminal screen boundary
+- Fixed blank lines in verbose transcript view</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/be5d08fe5f8bcff6c1058fd4ddfce8cc3a32daa3/CHANGELOG.md</guid>
+      <pubDate>Tue, 10 Feb 2026 23:10:48 +0000</pubDate>
+    </item>
+    <item>
+      <title>v2.1.38</title>
+      <link>https://github.com/anthropics/claude-code/blob/19bb071fe024c1398d3f0a4b3ada25007cf5182c/CHANGELOG.md</link>
+      <description>- Fixed VS Code terminal scroll-to-top regression introduced in 2.1.37
+- Fixed Tab key queueing slash commands instead of autocompleting
+- Fixed bash permission matching for commands using environment variable wrappers
+- Fixed text between tool uses disappearing when not using streaming
+- Fixed duplicate sessions when resuming in VS Code extension
+- Improved heredoc delimiter parsing to prevent command smuggling
+- Blocked writes to `.claude/skills` directory in sandbox mode</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/19bb071fe024c1398d3f0a4b3ada25007cf5182c/CHANGELOG.md</guid>
+      <pubDate>Tue, 10 Feb 2026 00:52:42 +0000</pubDate>
+    </item>
     <item>
       <title>v2.1.37</title>
       <link>https://github.com/anthropics/claude-code/blob/85f28079913b67a498ce16f32fd88aeb72a01939/CHANGELOG.md</link>
