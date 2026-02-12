@@ -7,11 +7,19 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 11 Feb 2026 00:23:50 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 12 Feb 2026 00:18:40 +0000</lastBuildDate>
     <item>
       <title>v2.1.39</title>
       <link>https://github.com/anthropics/claude-code/blob/be5d08fe5f8bcff6c1058fd4ddfce8cc3a32daa3/CHANGELOG.md</link>
-      <description>- Improved terminal rendering performance
+      <description>- Added guard against launching Claude Code inside another Claude Code session
+- Fixed Agent Teams using wrong model identifier for Bedrock, Vertex, and Foundry customers
+- Fixed a crash when MCP tools return image content during streaming
+- Fixed /resume session previews showing raw XML tags instead of readable command names
+- Improved model error messages for Bedrock/Vertex/Foundry users with fallback suggestions
+- Fixed plugin browse showing misleading "Space to Toggle" hint for already-installed plugins
+- Fixed hook blocking errors (exit code 2) not showing stderr to the user
+- Added `speed` attribute to OTel events and trace spans for fast mode visibility
+- Improved terminal rendering performance
 - Fixed fatal errors being swallowed instead of displayed
 - Fixed process hanging after session close
 - Fixed character loss at terminal screen boundary
