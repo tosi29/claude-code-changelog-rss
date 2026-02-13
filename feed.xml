@@ -7,7 +7,7 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 12 Feb 2026 00:18:40 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 13 Feb 2026 00:20:54 +0000</lastBuildDate>
     <item>
       <title>v2.1.39</title>
       <link>https://github.com/anthropics/claude-code/blob/be5d08fe5f8bcff6c1058fd4ddfce8cc3a32daa3/CHANGELOG.md</link>
@@ -19,6 +19,11 @@
 - Fixed plugin browse showing misleading "Space to Toggle" hint for already-installed plugins
 - Fixed hook blocking errors (exit code 2) not showing stderr to the user
 - Added `speed` attribute to OTel events and trace spans for fast mode visibility
+- Fixed /resume showing interrupt messages as session titles
+- Fixed Opus 4.6 launch announcement showing for Bedrock/Vertex/Foundry users
+- Improved error message for many-image dimension limit errors with /compact suggestion
+- Fixed structured-outputs beta header being sent unconditionally on Vertex/Bedrock
+- Fixed spurious warnings for non-agent markdown files in `.claude/agents/` directory
 - Improved terminal rendering performance
 - Fixed fatal errors being swallowed instead of displayed
 - Fixed process hanging after session close
