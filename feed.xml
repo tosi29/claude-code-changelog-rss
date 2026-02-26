@@ -7,7 +7,28 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 25 Feb 2026 00:20:45 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 26 Feb 2026 00:17:09 +0000</lastBuildDate>
+    <item>
+      <title>v2.1.58</title>
+      <link>https://github.com/anthropics/claude-code/blob/ee4ff289f0756a21aa64f8ec04018c0ffa94c19e/CHANGELOG.md</link>
+      <description>- Expand Remote Control to more users</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/ee4ff289f0756a21aa64f8ec04018c0ffa94c19e/CHANGELOG.md</guid>
+      <pubDate>Wed, 25 Feb 2026 19:59:14 +0000</pubDate>
+    </item>
+    <item>
+      <title>v2.1.56</title>
+      <link>https://github.com/anthropics/claude-code/blob/db3858a5589c8e6ffeb4cf765edc23cd4dbf900a/CHANGELOG.md</link>
+      <description>- VS Code: Fixed another cause of "command 'claude-vscode.editor.openLast' not found" crashes</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/db3858a5589c8e6ffeb4cf765edc23cd4dbf900a/CHANGELOG.md</guid>
+      <pubDate>Wed, 25 Feb 2026 06:27:03 +0000</pubDate>
+    </item>
+    <item>
+      <title>v2.1.55</title>
+      <link>https://github.com/anthropics/claude-code/blob/a0128f4a40952ce80cc7f5aba54334a74020a758/CHANGELOG.md</link>
+      <description>- Fixed BashTool failing on Windows with EINVAL error</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/a0128f4a40952ce80cc7f5aba54334a74020a758/CHANGELOG.md</guid>
+      <pubDate>Wed, 25 Feb 2026 03:14:59 +0000</pubDate>
+    </item>
     <item>
       <title>v2.1.53</title>
       <link>https://github.com/anthropics/claude-code/blob/6e7f65eb95693516424e3e21b93c700e1a41e069/CHANGELOG.md</link>
