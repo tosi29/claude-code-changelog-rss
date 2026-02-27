@@ -7,7 +7,28 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 26 Feb 2026 00:17:09 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 27 Feb 2026 00:20:06 +0000</lastBuildDate>
+    <item>
+      <title>v2.1.61</title>
+      <link>https://github.com/anthropics/claude-code/blob/7ec9125c5454dcd1f60b7ea5056e003bdd54caa4/CHANGELOG.md</link>
+      <description>- Fixed concurrent writes corrupting config file on Windows</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/7ec9125c5454dcd1f60b7ea5056e003bdd54caa4/CHANGELOG.md</guid>
+      <pubDate>Thu, 26 Feb 2026 22:33:45 +0000</pubDate>
+    </item>
+    <item>
+      <title>v2.1.59</title>
+      <link>https://github.com/anthropics/claude-code/blob/d6ab0eafec1692c070a835504b662881649d7112/CHANGELOG.md</link>
+      <description>- Claude automatically saves useful context to auto-memory. Manage with /memory
+- Added `/copy` command to show an interactive picker when code blocks are present, allowing selection of individual code blocks or the full response.
+- Improved "always allow" prefix suggestions for compound bash commands (e.g. `cd /tmp &amp;&amp; git fetch &amp;&amp; git push`) to compute smarter per-subcommand prefixes instead of treating the whole command as one
+- Improved ordering of short task lists
+- Improved memory usage in multi-agent sessions by releasing completed subagent task state
+- Fixed MCP OAuth token refresh race condition when running multiple Claude Code instances simultaneously
+- Fixed shell commands not showing a clear error message when the working directory has been deleted
+- Fixed config file corruption that could wipe authentication when multiple Claude Code instances ran simultaneously</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/d6ab0eafec1692c070a835504b662881649d7112/CHANGELOG.md</guid>
+      <pubDate>Thu, 26 Feb 2026 00:58:38 +0000</pubDate>
+    </item>
     <item>
       <title>v2.1.58</title>
       <link>https://github.com/anthropics/claude-code/blob/ee4ff289f0756a21aa64f8ec04018c0ffa94c19e/CHANGELOG.md</link>
