@@ -7,7 +7,23 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 04 Mar 2026 00:18:10 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 05 Mar 2026 00:18:51 +0000</lastBuildDate>
+    <item>
+      <title>v2.1.68</title>
+      <link>https://github.com/anthropics/claude-code/blob/0b3f7cbbbd8c0e78c4bb63134ead608c555df5de/CHANGELOG.md</link>
+      <description>- Opus 4.6 now defaults to medium effort for Max and Team subscribers. Medium effort works well for most tasks — it's the sweet spot between speed and thoroughness. You can change this anytime with `/model`
+- Re-introduced the "ultrathink" keyword to enable high effort for the next turn
+- Removed Opus 4 and 4.1 from Claude Code on the first-party API — users with these models pinned are automatically moved to Opus 4.6</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/0b3f7cbbbd8c0e78c4bb63134ead608c555df5de/CHANGELOG.md</guid>
+      <pubDate>Wed, 04 Mar 2026 10:10:30 +0000</pubDate>
+    </item>
+    <item>
+      <title>v2.1.66</title>
+      <link>https://github.com/anthropics/claude-code/blob/a8335230bc62baae60c8eb18ae77ab32123454bd/CHANGELOG.md</link>
+      <description>- Reduced spurious error logging</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/a8335230bc62baae60c8eb18ae77ab32123454bd/CHANGELOG.md</guid>
+      <pubDate>Wed, 04 Mar 2026 02:23:29 +0000</pubDate>
+    </item>
     <item>
       <title>v2.1.63</title>
       <link>https://github.com/anthropics/claude-code/blob/cd4956871a56b07d9d2a6cb538fae109d04c9d57/CHANGELOG.md</link>
