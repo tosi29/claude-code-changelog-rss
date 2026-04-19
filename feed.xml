@@ -7,7 +7,14 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 18 Apr 2026 00:24:13 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 19 Apr 2026 00:25:59 +0000</lastBuildDate>
+    <item>
+      <title>v2.1.114</title>
+      <link>https://github.com/anthropics/claude-code/blob/0385848b4e737831fc3b973d9a78d31950a87d9d/CHANGELOG.md</link>
+      <description>- Fixed a crash in the permission dialog when an agent teams teammate requested tool permission</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/0385848b4e737831fc3b973d9a78d31950a87d9d/CHANGELOG.md</guid>
+      <pubDate>Sat, 18 Apr 2026 01:34:25 +0000</pubDate>
+    </item>
     <item>
       <title>v2.1.113</title>
       <link>https://github.com/anthropics/claude-code/blob/71366ecf5dd9103a46537eab8607a2a3c0637577/CHANGELOG.md</link>
