@@ -7,7 +7,7 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 22 Apr 2026 00:24:17 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 23 Apr 2026 00:29:42 +0000</lastBuildDate>
     <item>
       <title>v2.1.117</title>
       <link>https://github.com/anthropics/claude-code/blob/2fa67717b8046c253cfa55fd84002e3501f1eca6/CHANGELOG.md</link>
@@ -57,6 +57,7 @@
 - Agent frontmatter `hooks:` now fire when running as a main-thread agent via `--agent`
 - Slash command menu now shows "No commands match" when your filter has zero results, instead of disappearing
 - Security: sandbox auto-allow no longer bypasses the dangerous-path safety check for `rm`/`rmdir` targeting `/`, `$HOME`, or other critical system directories
+- Claude Code and installer now use `https://downloads.claude.ai/claude-code-releases` instead of `https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases`
 - Fixed Devanagari and other Indic scripts rendering with broken column alignment in the terminal UI
 - Fixed Ctrl+- not triggering undo in terminals using the Kitty keyboard protocol (iTerm2, Ghostty, kitty, WezTerm, Windows Terminal)
 - Fixed Cmd+Left/Right not jumping to line start/end in terminals that use the Kitty keyboard protocol (Warp fullscreen, kitty, Ghostty, WezTerm)
