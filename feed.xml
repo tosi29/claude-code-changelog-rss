@@ -7,7 +7,7 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 30 Apr 2026 00:32:15 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 01 May 2026 00:34:27 +0000</lastBuildDate>
     <item>
       <title>v2.1.123</title>
       <link>https://github.com/anthropics/claude-code/blob/e512ec99188d191b07662fc9f69c5764f750a302/CHANGELOG.md</link>
