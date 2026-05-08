@@ -7,7 +7,30 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 07 May 2026 00:32:02 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 08 May 2026 00:32:25 +0000</lastBuildDate>
+    <item>
+      <title>v2.1.133</title>
+      <link>https://github.com/anthropics/claude-code/blob/6cd790cd21d21335b8f968301da710bfdc0d9f88/CHANGELOG.md</link>
+      <description>- Added `worktree.baseRef` setting (`fresh` | `head`) to choose whether `--worktree`, `EnterWorktree`, and agent-isolation worktrees branch from `origin/&lt;default&gt;` or local `HEAD`. **Note:** the default `fresh` changes `EnterWorktree`'s base back to `origin/&lt;default&gt;` (it has been local `HEAD` since 2.1.128) — set `worktree.baseRef: "head"` to keep unpushed commits in new worktrees
+- Added `sandbox.bwrapPath` and `sandbox.socatPath` managed settings (Linux/WSL) to specify custom bubblewrap and socat binary locations
+- Added `parentSettingsBehavior` admin-tier key (`'first-wins' | 'merge'`) to let admins opt SDK `managedSettings` (parent tier) into the policy merge
+- Hooks now receive the active effort level via the `effort.level` JSON input field and the `$CLAUDE_EFFORT` environment variable, and Bash tool commands can read `$CLAUDE_EFFORT`
+- Improved focus mode behavior
+- Improved memory usage by releasing warm-spare background workers under memory pressure
+- Fixed parallel sessions all dead-ending at 401 after a refresh-token race wiped shared credentials
+- Fixed `Edit`/`Write` allow rules scoped to a drive root (`C:\`) or POSIX `/` matching incorrectly and always prompting
+- Fixed an unhandled rejection (`ECOMPROMISED`) when a history or session-log file lock is compromised by clock skew or slow disk
+- Fixed pressing Esc during conversation compaction showing a spurious "Error compacting conversation" notification
+- Fixed `HTTP(S)_PROXY` / `NO_PROXY` / mTLS not being respected for the full MCP OAuth flow including discovery, dynamic client registration, token exchange, and token refresh
+- Fixed Read/Write/Edit being denied on mapped network drives passed via `--add-dir` / SDK `additionalDirectories`
+- Fixed Remote Control stop/interrupt from claude.ai not fully canceling the CLI session the same way local Esc does, causing queued messages to never advance after interrupting a stuck tool or prompt
+- Fixed `/effort` in one session unexpectedly changing the effort level of other concurrent sessions, and a related issue where an IDE effort change could be silently dropped
+- Fixed subagents not discovering project, user, or plugin skills via the Skill tool
+- `claude --help` now lists `--remote-control` alongside `--remote-control-session-name-prefix`
+- [VSCode] Fixed `claudeCode.claudeProcessWrapper` failing with "Unsupported platform" when the extension build doesn't bundle a Claude binary</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/6cd790cd21d21335b8f968301da710bfdc0d9f88/CHANGELOG.md</guid>
+      <pubDate>Thu, 07 May 2026 23:48:57 +0000</pubDate>
+    </item>
     <item>
       <title>v2.1.132</title>
       <link>https://github.com/anthropics/claude-code/blob/60348c95361c632ea4898ae32a8eaae7bcfbb37a/CHANGELOG.md</link>
