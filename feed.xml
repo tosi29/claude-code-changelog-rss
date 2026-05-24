@@ -7,7 +7,14 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 23 May 2026 00:36:32 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 24 May 2026 00:37:11 +0000</lastBuildDate>
+    <item>
+      <title>v2.1.150</title>
+      <link>https://github.com/anthropics/claude-code/blob/39e853e4074d90f27afdfb7ea601e0fc378bd0c5/CHANGELOG.md</link>
+      <description>- Internal infrastructure improvements (no user-facing changes)</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/39e853e4074d90f27afdfb7ea601e0fc378bd0c5/CHANGELOG.md</guid>
+      <pubDate>Sat, 23 May 2026 04:03:45 +0000</pubDate>
+    </item>
     <item>
       <title>v2.1.149</title>
       <link>https://github.com/anthropics/claude-code/blob/64e53823deb2b8e007c41cb6da5ac75264c3394d/CHANGELOG.md</link>
