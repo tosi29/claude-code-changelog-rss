@@ -7,7 +7,14 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 30 May 2026 00:37:10 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 31 May 2026 00:39:45 +0000</lastBuildDate>
+    <item>
+      <title>v2.1.158</title>
+      <link>https://github.com/anthropics/claude-code/blob/295dee881d0e1c1d0cd22fe171e4c1d07118fb04/CHANGELOG.md</link>
+      <description>- Auto mode is now available on Bedrock, Vertex, and Foundry for Opus 4.7 and Opus 4.8. Opt in by setting `CLAUDE_CODE_ENABLE_AUTO_MODE=1`</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/295dee881d0e1c1d0cd22fe171e4c1d07118fb04/CHANGELOG.md</guid>
+      <pubDate>Sat, 30 May 2026 02:42:09 +0000</pubDate>
+    </item>
     <item>
       <title>v2.1.157</title>
       <link>https://github.com/anthropics/claude-code/blob/8d0fbf451ace0d291f1cdae824c66e1227e117c4/CHANGELOG.md</link>
