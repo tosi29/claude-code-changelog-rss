@@ -7,7 +7,15 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 11 Jun 2026 00:43:14 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 12 Jun 2026 00:45:13 +0000</lastBuildDate>
+    <item>
+      <title>v2.1.173</title>
+      <link>https://github.com/anthropics/claude-code/blob/3a7c736101edbd00426fce4615e80b937f6467df/CHANGELOG.md</link>
+      <description>- Fixed Fable 5 model names with a `[1m]` suffix not being normalized — Fable 5 includes 1M context by default, so the suffix is now stripped automatically
+- Fixed a spurious "sandbox dependencies missing" startup warning on Windows when sandbox was enabled in settings</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/3a7c736101edbd00426fce4615e80b937f6467df/CHANGELOG.md</guid>
+      <pubDate>Thu, 11 Jun 2026 05:41:48 +0000</pubDate>
+    </item>
     <item>
       <title>v2.1.172</title>
       <link>https://github.com/anthropics/claude-code/blob/ca34f27543215fa4212872401dff00ba0ff0a034/CHANGELOG.md</link>
