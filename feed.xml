@@ -7,7 +7,40 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 24 Jun 2026 00:35:17 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 25 Jun 2026 00:40:24 +0000</lastBuildDate>
+    <item>
+      <title>v2.1.191</title>
+      <link>https://github.com/anthropics/claude-code/blob/0bd954331e2dbf76024ac53b0fd997314f653e51/CHANGELOG.md</link>
+      <description>- Added `/rewind` support for resuming a conversation from before `/clear` was run
+- Fixed scroll position jumping to the bottom while reading earlier output during a streaming response
+- Fixed background agents resurrecting after being stopped — stopping an agent from the tasks panel is now permanent
+- Fixed `/voice` showing a generic "not available" message when disabled by an organization's policy — it now explains the restriction
+- Fixed `/login` URL opening truncated in Windows Terminal when it wraps across lines
+- Fixed Cmd+click on links in fullscreen mode for Ghostty over ssh/tmux
+- Fixed `claude agents` sending builtin slash commands like `/usage` to background sessions as prompt text instead of showing a hint
+- Fixed `claude agents` job rows showing full filesystem paths for pasted images instead of the `[Image #N]` placeholder
+- Fixed hooks with comma-separated matchers (e.g. `"Bash,PowerShell"`) silently never firing
+- Fixed `/permissions` Recently-denied tab: approving a denial now persists on close instead of being silently discarded
+- Fixed the agent panel jumping by one row when scrolling the roster past the overflow cap
+- Fixed the welcome splash art overflowing the default 80×24 macOS Terminal window
+- Fixed managed settings: `forceRemoteSettingsRefresh` now takes effect when set via MDM or file policy, and the fetch sends `Cache-Control: no-cache` to prevent proxies from serving stale responses
+- Improved sandbox network permission dialog: hosts you allow with "Yes" are now remembered for the rest of the session instead of re-prompting on every connection
+- Improved MCP server reliability: capability discovery (`tools/list`, `prompts/list`, `resources/list`) now retries transient network errors with short backoff
+- Improved MCP OAuth: discovery and token requests now retry once after transient network errors, and headless environments skip the browser popup and go straight to the paste-the-URL prompt
+- Improved MCP error messages: HTTP 404 errors now show the URL and point to your MCP config
+- Improved vim mode prompt-history search (NORMAL `/`) to hint how to reach slash commands
+- Reduced CPU usage during streaming responses by ~37% by coalescing text updates to 100ms
+- Reduced long-session memory growth from terminal output cache</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/0bd954331e2dbf76024ac53b0fd997314f653e51/CHANGELOG.md</guid>
+      <pubDate>Wed, 24 Jun 2026 21:58:06 +0000</pubDate>
+    </item>
+    <item>
+      <title>v2.1.190</title>
+      <link>https://github.com/anthropics/claude-code/blob/5c1517a21be562c2929ae468b4511c677b993555/CHANGELOG.md</link>
+      <description>- Bug fixes and reliability improvements</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/5c1517a21be562c2929ae468b4511c677b993555/CHANGELOG.md</guid>
+      <pubDate>Wed, 24 Jun 2026 15:53:49 +0000</pubDate>
+    </item>
     <item>
       <title>v2.1.187</title>
       <link>https://github.com/anthropics/claude-code/blob/2aa6ef3d35ec45f8eea1c44c672781f183333809/CHANGELOG.md</link>
