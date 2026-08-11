@@ -7,7 +7,18 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 10 Aug 2026 01:14:55 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 11 Aug 2026 01:13:11 +0000</lastBuildDate>
+    <item>
+      <title>v2.1.227</title>
+      <link>https://github.com/anthropics/claude-code/blob/54cc51a08a5d3900e5abd02ad75a2ce46f3f008c/CHANGELOG.md</link>
+      <description>- Fixed feature flags being evaluated without the user's subscription tier when a session started with an expired login token, which could wrongly prompt Max plan users to enable usage credits for Fable
+- Fixed every Bash command failing under `claude-code-action` with `allowed_non_write_users` on GitHub-hosted runners
+- Fixed `/tui` bringing back a conversation that had been rewound to before its first message
+- Improved slash-command menu: blue now marks only the selected row, matched characters are bolded instead of recolored, and emoji or accented names keep their glyphs
+- Improved performance: fewer event-loop stalls on file-not-found suggestions and at-mention size checks</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/54cc51a08a5d3900e5abd02ad75a2ce46f3f008c/CHANGELOG.md</guid>
+      <pubDate>Mon, 10 Aug 2026 22:56:46 +0000</pubDate>
+    </item>
     <item>
       <title>v2.1.226</title>
       <link>https://github.com/anthropics/claude-code/blob/2bb60696142b493eafaeacfe00eac51d16c50c4f/CHANGELOG.md</link>
