@@ -7,7 +7,46 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 26 Aug 2026 00:55:41 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 27 Aug 2026 06:41:58 +0000</lastBuildDate>
+    <item>
+      <title>v2.1.247</title>
+      <link>https://github.com/anthropics/claude-code/blob/cad6304e85e2767eac20044e752b010fff1bb4c3/CHANGELOG.md</link>
+      <description>- Added the `SendFeedback` tool: when something goes wrong in a session, Claude can draft a feedback report for you to review and send from `/feedback` (turn off with the `feedbackDrafts` setting)
+- Added `{id, text, cooldownSessions, priority}` entries, `tipsFile`, and `label` to `spinnerTipsOverride`, so organizations can rotate their own tips alongside the built-in ones
+- Added a tip on Bash permission prompts pointing to auto mode, with a one-keystroke "Yes, and switch to auto mode" option
+- Added `/claude-api cost-optimize` to profile an existing project's Claude API spend and work through cost levers (caching, token hygiene, batch, effort, model choice) one measured change at a time
+- Updated the `/claude-api` skill with Admin API coverage (organization members, invites, workspaces, API keys, rate limit reports, workload identity federation, CMEK)
+- Fixed fast arrow-key + Enter sequences acting on the row above the one you navigated to in history search, `/config`, `/mcp`, `/skills`, background tasks, and `/model`
+- Fixed sub-agents dying on a first-call model 404: they now use the session's fallback model chain, and the error returned to the parent includes the error type, status, request id, and model
+- Fixed a hook or background agent that printed megabytes of error output being able to overflow the conversation and wedge the session on "Prompt is too long"
+- Fixed Ctrl keyboard shortcuts not firing under non-Latin (e.g. Cyrillic) keyboard layouts in kitty-protocol terminals
+- Fixed text like `&lt;35;150;7M` being inserted into the prompt when a mouse report arrived split across reads right after the escape prefix
+- Fixed the Bash sandbox's after-command cleanup deleting a dotfile-managed `~/.claude/settings.json` symlink (nix/home-manager, stow) when it is repointed outside the sandbox's writable area
+- Fixed `/terminal-setup` overwriting your entire Zed `keymap.json` instead of merging in its keybinding
+- Fixed `/rename` silently confirming when the session registry could not be updated; it now says other sessions may still show the old name
+- Fixed `/compact` and "Summarize from here" in sessions started with `--agent` summarizing under the default system prompt instead of the conversation's own
+- Fixed a background session showing "opening…" forever in `claude agents` after its terminal host process died; the row now fails within seconds with the reason, and Enter restarts it
+- Fixed unbounded memory growth when a hook's or background task's output file could not be written; the file now notes where output was lost
+- Fixed `/install-github-app` over SSH: the copy shortcut now says how the sign-in URL was copied instead of always claiming success, and the URL appears immediately when no browser can open
+- Fixed shell commands carried over from the foreground logging an internal error or showing a misleading `[exited with code -1]` line when they finish in background sessions
+- Fixed a version-less marketplace plugin's live cache directory being deleted and recreated on a second-scope install, which could disrupt a running session using it
+- Fixed Remote Control sessions started with `/remote-control` not reporting the working-tree diff to connected clients
+- Fixed self-hosted runner sessions reporting `running` before Claude Code had started, which could trigger a premature "Claude is waiting for your input" notification from the Claude desktop app
+- Fixed first-run setup exiting with "Unable to connect to Anthropic services" when managed settings configure Claude apps gateway sign-in and Anthropic endpoints are unreachable
+- Fixed cloud sessions (Claude Code on the web, desktop and mobile apps) sometimes showing the previous permission mode when you switch modes right after sending a message
+- Fixed cloud sessions going silent when the session's container restarts between turns while a background agent, shell, or monitor is still running — the resumed session now reports the lost work
+- Improved plugin marketplace hardening: names containing control or invisible characters are rejected, and marketplace-supplied text in `/plugin` and `claude plugin` output is escape-safe
+- Improved Bedrock, Vertex, and Foundry sessions (and any with telemetry disabled): Claude is now told when a configured MCP server failed to connect, instead of concluding its tools don't exist
+- Changed Sonnet 5's default auto-compact window to its full 1M context, so sessions on the 1M window now auto-compact at about 967K tokens instead of about 934K
+- Changed cross-session peer messages to collapse by default to a one-line `Message from @&lt;sender&gt;: &lt;first line&gt;` preview; Ctrl+O expands the full body
+- Changed terminal hyperlinks in rendered markdown: link targets that point at a network or automounter path, contain a control character, or lead with an invisible character now render as plain text
+- Changed the prompt-footer PR badge to skip its GitHub re-check on terminal refocus when the last check is under a minute old
+- Changed analytics to stay off from startup, not only after login, when managed settings force gateway login or a custom OAuth deployment is configured
+- Changed Claude apps gateway sign-in requests to identify Claude Code (a `surface=claude_code` device-authorization parameter and a `claude-code/&lt;version&gt;` User-Agent)
+- Changed organization sign-in enforcement to exit at start when the administrator's managed settings cannot be read, even if host-supplied or per-user Windows registry settings exist</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/cad6304e85e2767eac20044e752b010fff1bb4c3/CHANGELOG.md</guid>
+      <pubDate>Wed, 26 Aug 2026 23:06:33 +0000</pubDate>
+    </item>
     <item>
       <title>v2.1.246</title>
       <link>https://github.com/anthropics/claude-code/blob/005c5dade90c2c59c88d819d8723e7b579addb5e/CHANGELOG.md</link>
@@ -5245,66 +5284,7 @@
 - Fixed AWS Bedrock subagents not inheriting EU/APAC cross-region inference model configuration, causing 403 errors when IAM permissions are scoped to specific regions
 - Fixed API context overflow when background tasks produce large output by truncating to 30K chars with file path reference
 - Fixed a hang when reading FIFO files by skipping symlink resolution for special file types
-- Fixed terminal keyboard mode not being reset on exit in Ghostty, iTerm2, Kitty, and WezTerm
-- Fixed Alt+B and Alt+F (word navigation) not working in iTerm2, Ghostty, Kitty, and WezTerm
-- Fixed `${CLAUDE_PLUGIN_ROOT}` not being substituted in plugin `allowed-tools` frontmatter, which caused tools to incorrectly require approval
-- Fixed files created by the Write tool using hardcoded 0o600 permissions instead of respecting the system umask
-- Fixed commands with `$()` command substitution failing with parse errors
-- Fixed multi-line bash commands with backslash continuations being incorrectly split and flagged for permissions
-- Fixed bash command prefix extraction to correctly identify subcommands after global options (e.g., `git -C /path log` now correctly matches `Bash(git log:*)` rules)
-- Fixed slash commands passed as CLI arguments (e.g., `claude /context`) not being executed properly
-- Fixed pressing Enter after Tab-completing a slash command selecting a different command instead of submitting the completed one
-- Fixed slash command argument hint flickering and inconsistent display when typing commands with arguments
-- Fixed Claude sometimes redundantly invoking the Skill tool when running slash commands directly
-- Fixed skill token estimates in `/context` to accurately reflect frontmatter-only loading
-- Fixed subagents sometimes not inheriting the parent's model by default
-- Fixed model picker showing incorrect selection for Bedrock/Vertex users using `--model haiku`
-- Fixed duplicate Bash commands appearing in permission request option labels
-- Fixed noisy output when background tasks complete - now shows clean completion message instead of raw output
-- Fixed background task completion notifications to appear proactively with bullet point
-- Fixed forked slash commands showing "AbortError" instead of "Interrupted" message when cancelled
-- Fixed cursor disappearing after dismissing permission dialogs
-- Fixed `/hooks` menu selecting wrong hook type when scrolling to a different option
-- Fixed images in queued prompts showing as "[object Object]" when pressing Esc to cancel
-- Fixed images being silently dropped when queueing messages while backgrounding a task
-- Fixed large pasted images failing with "Image was too large" error
-- Fixed extra blank lines in multiline prompts containing CJK characters (Japanese, Chinese, Korean)
-- Fixed ultrathink keyword highlighting being applied to wrong characters when user prompt text wraps to multiple lines
-- Fixed collapsed "Reading X files…" indicator incorrectly switching to past tense when thinking blocks appear mid-stream
-- Fixed Bash read commands (like `ls` and `cat`) not being counted in collapsed read/search groups, causing groups to incorrectly show "Read 0 files"
-- Fixed spinner token counter to properly accumulate tokens from subagents during execution
-- Fixed memory leak in git diff parsing where sliced strings retained large parent strings
-- Fixed race condition where LSP tool could return "no server available" during startup
-- Fixed feedback submission hanging indefinitely when network requests timeout
-- Fixed search mode in plugin discovery and log selector views exiting when pressing up arrow
-- Fixed hook success message showing trailing colon when hook has no output
-- Multiple optimizations to improve startup performance
-- Improved terminal rendering performance when using native installer or Bun, especially for text with emoji, ANSI codes, and Unicode characters
-- Improved performance when reading Jupyter notebooks with many cells
-- Improved reliability for piped input like `cat refactor.md | claude`
-- Improved reliability for AskQuestion tool
-- Improved sed in-place edit commands to render as file edits with diff preview
-- Improved Claude to automatically continue when response is cut off due to output token limit, instead of showing an error message
-- Improved compaction reliability
-- Improved subagents (Task tool) to continue working after permission denial, allowing them to try alternative approaches
-- Improved skills to show progress while executing, displaying tool uses as they happen
-- Improved skills from `/skills/` directories to be visible in the slash command menu by default (opt-out with `user-invocable: false` in frontmatter)
-- Improved skill suggestions to prioritize recently and frequently used skills
-- Improved spinner feedback when waiting for the first response token
-- Improved token count display in spinner to include tokens from background agents
-- Improved incremental output for async agents to give the main thread more control and visibility
-- Improved permission prompt UX with Tab hint moved to footer, cleaner Yes/No input labels with contextual placeholders
-- Improved the Claude in Chrome notification with shortened help text and persistent display until dismissed
-- Improved macOS screenshot paste reliability with TIFF format support
-- Improved `/stats` output
-- Updated Atlassian MCP integration to use a more reliable default configuration (streamable HTTP)
-- Changed "Interrupted" message color from red to grey for a less alarming appearance
-- Removed permission prompt when entering plan mode - users can now enter plan mode without approval
-- Removed underline styling from image reference links
-- [SDK] Changed minimum zod peer dependency to ^4.0.0
-- [VSCode] Added currently selected model name to the context menu
-- [VSCode] Added descriptive labels on auto-accept permission button (e.g., "Yes, allow npm for this project" instead of "Yes, and don't ask again")
-- [VSCode] Fixed paragraph breaks not re</description>
+- Fixed terminal keyboard mode not being reset on exit in Ghostty, iTer</description>
       <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/5aac2b1b6aa23b65cd146b7eac8af30bc858d6eb/CHANGELOG.md</guid>
       <pubDate>Wed, 07 Jan 2026 21:30:49 +0000</pubDate>
     </item>
