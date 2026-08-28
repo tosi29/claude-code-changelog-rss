@@ -7,7 +7,69 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 27 Aug 2026 06:41:58 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 28 Aug 2026 08:32:10 +0000</lastBuildDate>
+    <item>
+      <title>v2.1.250</title>
+      <link>https://github.com/anthropics/claude-code/blob/92bb6850f1bb51f4d18b03b23d643642f9d687b6/CHANGELOG.md</link>
+      <description>- Bug fixes and reliability improvements</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/92bb6850f1bb51f4d18b03b23d643642f9d687b6/CHANGELOG.md</guid>
+      <pubDate>Fri, 28 Aug 2026 00:49:10 +0000</pubDate>
+    </item>
+    <item>
+      <title>v2.1.248</title>
+      <link>https://github.com/anthropics/claude-code/blob/c336b74efcb15cdbacab427d277d5ebed11ddbec/CHANGELOG.md</link>
+      <description>- Added `--restricted` (or `CLAUDE_CODE_RESTRICTED=1`): removes the built-in tools that run commands or code and `WebFetch` (unless named in `--tools`), keeps file tools inside the working directory, refuses `bypassPermissions`, and ignores user, project and local settings files
+- Added `experimental.cacheTtl` (`"5m"` or `"1h"`) to agent frontmatter: a per-agent prompt cache TTL used when no subagent TTL setting is configured
+- Added `claude self-hosted-runner --client-label &lt;label&gt;` (or `SELF_HOSTED_RUNNER_CLIENT_LABEL`) to override the label the runner registers with (default: hostname)
+- Added server-managed settings diagnostics: a startup warning when the settings fail to load, and a `/doctor` and `/status` line explaining a load failure or why they weren't fetched (Bedrock/Vertex/third-party provider, custom `ANTHROPIC_BASE_URL`)
+- Added a warning in `/web-setup` when the GitHub CLI token lacks the `workflow` scope, since pushes to very large repositories can be rejected without it
+- Added `/usage-credits` for Enterprise organizations billed through AWS Marketplace, self-serve Enterprise, and Enterprise trials, so members can request a higher usage limit from their admin
+- Added cross-session messaging (`SendMessage` / `ListAgents`) between sessions on the same machine on Bedrock, Vertex, and Foundry, and when telemetry is disabled
+- Fixed a prompt-cache miss (and lost extended-thinking context) roughly once an hour in long sessions, caused by tool definitions being re-rendered after an OAuth token refresh
+- Fixed the `ScheduleWakeup` tool definition changing between a session and its `--resume` when the account had entered usage overage, causing a full prompt-cache miss on the resumed session's first turn
+- Fixed Claude Desktop and Cowork sessions disappearing after 30 days: the transcript cleanup now keeps desktop-written sessions while they are in the app (unless org policy manages retention); the new `desktopSessionCleanupPeriodDays` setting caps the exemption
+- Fixed being sent to the login screen when another Claude Code process held the token refresh lock while the session token had expired; the request now fails with a retryable error instead
+- Windows: Fixed the `claude agents` list not responding to the keyboard after detaching from a session, or when launched in a terminal tab left in win32-input-mode
+- Fixed the recommended Console sign-in in `/login` failing with an OAuth error before showing a sign-in URL on machines where it can't be used (for example when `ANTHROPIC_API_KEY` or an API key helper is set); it now falls back to the API-key sign-in
+- Fixed model names in `/model` and fast-mode switch notices to render as code, so suffixes like `[1m]` display literally instead of as a link
+- Fixed `claude agents` skipping the workspace trust prompt when the `CI` environment variable is set
+- Fixed `claude agents` crashing on launch when the PR-status cache held a malformed entry
+- Fixed agent view resurrecting a weeks-old background session after the machine was off: such a session now shows as stopped at its real end, and opening it asks before resuming its saved conversation
+- Fixed agent view sometimes opening an older conversation, and dropping the typed prompt, when starting a new session
+- Fixed `claude agents`: opening a stopped session that you already resumed in another terminal no longer starts a second process on that conversation; the row now says it is open in a terminal
+- Fixed `claude agents` and `claude rm` refusing to delete a session ("has commits that are not pushed anywhere") when its worktree branch was already merged into your checked-out default branch (e.g. local `main`) but not yet pushed
+- Fixed background sessions waiting silently when a `PermissionRequest` or `PreToolUse` hook prints an invalid answer: the `claude agents` row now names the hook and the schema error
+- Fixed hooks silently treating a stdout `{…}` object that isn't valid JSON as plain text; it's now reported as a hook error with the parse message
+- Fixed `/mcp` listing a project `.mcp.json` entry that declares the claude.ai connector type under the trusted "claude.ai" heading; it now appears under its real scope
+- Fixed MCP servers whose `headersHelper` supplies the `Authorization` header falling into OAuth discovery on a 401 instead of re-running the helper and retrying the call as documented
+- Fixed `/login` to a Claude apps gateway hanging when the managed-settings security approval dialog was required
+- Fixed gateway model discovery (`CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY`) never running when `apiKeyHelper` is the only credential
+- Fixed `claude logs` leaving mouse tracking, bracketed paste and the alternate screen switched on in the terminal it was run from
+- Fixed the trust dialog's list of repo permission rules showing a garbled character when a long rule was cut off in the middle of an emoji
+- Fixed the permission mode indicator staying hidden behind the "Press Ctrl-C again to exit" hint when you press shift+tab right after ctrl+c
+- Fixed `/ultrareview` and locally seeded cloud sessions uploading uncommitted edits to `prod.env`-style and `*.tfvars` files, or to editor swap, temp, and backup copies of credential files (e.g. `key.pem.tmp`, `id_rsa.swo`); they now stay on your machine
+- Fixed Remote Control sessions occasionally never showing a permission prompt or the latest messages on the connected device after the CLI silently reconnected
+- Fixed cloud sessions occasionally failing at startup when the container's session credentials were not yet readable
+- Fixed `claude remote-control` rejecting its own flags (e.g. `--spawn`, `--name`) when a global flag or a wrapper-injected option precedes the subcommand
+- Fixed startup warnings (e.g. "N MCP servers need authentication") rendering one column right of the rest of the transcript
+- Fixed a backgrounded worktree session losing its checkout: the background session now holds the worktree's lock while it runs, so cleanup and `git worktree remove` leave it alone
+- Fixed @-mentions of other sessions not matching names typed with non-Latin characters (for example Korean entered through an IME)
+- Fixed an invalid `crossSessionInbound` value being silently ignored: it now warns and holds cross-session messages (user settings) or refuses them (managed settings) until fixed
+- Fixed rate-limit, usage, and fast-mode messages telling you to run `/usage-credits` when that command isn't available for your organization (e.g. hidden with `DISABLE_EXTRA_USAGE_COMMAND`)
+- [VSCode] Fixed a chat tab getting stuck on "No conversation found" when its session was never saved; it now starts a new conversation instead
+- Improved the Workflow tool's prompt footprint: its description is now about 1k tokens instead of 5.7k, with the script-writing reference moved into a bundled `workflow-authoring` skill
+- Improved the prompt-footer PR badge to check GitHub less often while the pull request is unchanged; a push or a `gh pr` command still refreshes it right away
+- Improved managed settings: client-side timeout, MCP startup-mode, and stream-watchdog env vars no longer trigger the settings-approval prompt
+- Improved `/ultrareview &lt;PR#&gt;` to check before launch that the GitHub account connected to your Claude account can access the repository, and to explain how to fix it, instead of failing after the cloud session starts
+- Improved cross-session messaging: falls back to a private per-user `/tmp` directory when the default one can't be used, and the notice and `/status` name the directory to fix
+- Changed shift+enter in the agent view dispatch input to insert a newline (matching the prompt); ctrl+enter now dispatches and attaches
+- Changed `/loop`: self-paced dynamic mode and the no-prompt autonomous default are now always available, including on Bedrock/Vertex/Foundry
+- Changed Anthropic telemetry export failures to log at debug level as `[Anthropic telemetry]` instead of `[3P telemetry] OTEL diag error`, so they are not mistaken for your OTel collector failing
+- Changed cross-session messaging in Linux user namespaces: root-equivalent trust for unmapped owners is limited to canonical system directories
+- Changed `SendMessage` from a subagent to another session: the result now notes that any reply is delivered to the parent session's conversation, not to the subagent</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/c336b74efcb15cdbacab427d277d5ebed11ddbec/CHANGELOG.md</guid>
+      <pubDate>Thu, 27 Aug 2026 22:12:10 +0000</pubDate>
+    </item>
     <item>
       <title>v2.1.247</title>
       <link>https://github.com/anthropics/claude-code/blob/cad6304e85e2767eac20044e752b010fff1bb4c3/CHANGELOG.md</link>
@@ -5195,98 +5257,9 @@
 - Added detection and warnings for unreachable permission rules, with warnings in `/doctor` and after saving rules that include the source of each rule and actionable fix guidance
 - Fixed plan files persisting across `/clear` commands, now ensuring a fresh plan file is used after clearing a conversation
 - Fixed false skill duplicate detection on filesystems with large inodes (e.g., ExFAT) by using 64-bit precision for inode values
-- Fixed mismatch between background task count in status bar and items shown in tasks dialog
-- Fixed sub-agents using the wrong model during conversation compaction
-- Fixed web search in sub-agents using incorrect model
-- Fixed trust dialog acceptance when running from the home directory not enabling trust-requiring features like hooks during the session
-- Improved terminal rendering stability by preventing uncontrolled writes from corrupting cursor state
-- Improved slash command suggestion readability by truncating long descriptions to 2 lines
-- Changed tool hook execution timeout from 60 seconds to 10 minutes
-- [VSCode] Added clickable destination selector for permission requests, allowing you to choose where settings are saved (this project, all projects, shared with team, or session only)</description>
+- Fixed mismatch between background task count in status bar and items shown in ta</description>
       <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/4f18698a9ed25517861a75125b526e319bcf8354/CHANGELOG.md</guid>
       <pubDate>Fri, 09 Jan 2026 23:32:24 +0000</pubDate>
-    </item>
-    <item>
-      <title>v2.1.2</title>
-      <link>https://github.com/anthropics/claude-code/blob/553d6ffc3e2a2b719c501d56a062560c5ce23b54/CHANGELOG.md</link>
-      <description>- Added source path metadata to images dragged onto the terminal, helping Claude understand where images originated
-- Added clickable hyperlinks for file paths in tool output in terminals that support OSC 8 (like iTerm)
-- Added support for Windows Package Manager (winget) installations with automatic detection and update instructions
-- Added Shift+Tab keyboard shortcut in plan mode to quickly select "auto-accept edits" option
-- Added `FORCE_AUTOUPDATE_PLUGINS` environment variable to allow plugin autoupdate even when the main auto-updater is disabled
-- Added `agent_type` to SessionStart hook input, populated if `--agent` is specified
-- Fixed a command injection vulnerability in bash command processing where malformed input could execute arbitrary commands
-- Fixed a memory leak where tree-sitter parse trees were not being freed, causing WASM memory to grow unbounded over long sessions
-- Fixed binary files (images, PDFs, etc.) being accidentally included in memory when using `@include` directives in CLAUDE.md files
-- Fixed updates incorrectly claiming another installation is in progress
-- Fixed crash when socket files exist in watched directories (defense-in-depth for EOPNOTSUPP errors)
-- Fixed remote session URL and teleport being broken when using `/tasks` command
-- Fixed MCP tool names being exposed in analytics events by sanitizing user-specific server configurations
-- Improved Option-as-Meta hint on macOS to show terminal-specific instructions for native CSIu terminals like iTerm2, Kitty, and WezTerm
-- Improved error message when pasting images over SSH to suggest using `scp` instead of the unhelpful clipboard shortcut hint
-- Improved permission explainer to not flag routine dev workflows (git fetch/rebase, npm install, tests, PRs) as medium risk
-- Changed large bash command outputs to be saved to disk instead of truncated, allowing Claude to read the full content
-- Changed large tool outputs to be persisted to disk instead of truncated, providing full output access via file references
-- Changed `/plugins` installed tab to unify plugins and MCPs with scope-based grouping
-- Deprecated Windows managed settings path `C:\ProgramData\ClaudeCode\managed-settings.json` - administrators should migrate to `C:\Program Files\ClaudeCode\managed-settings.json`
-- [SDK] Changed minimum zod peer dependency to ^4.0.0
-- [VSCode] Fixed usage display not updating after manual compact</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/553d6ffc3e2a2b719c501d56a062560c5ce23b54/CHANGELOG.md</guid>
-      <pubDate>Fri, 09 Jan 2026 00:04:20 +0000</pubDate>
-    </item>
-    <item>
-      <title>v2.1.0</title>
-      <link>https://github.com/anthropics/claude-code/blob/5aac2b1b6aa23b65cd146b7eac8af30bc858d6eb/CHANGELOG.md</link>
-      <description>- Added automatic skill hot-reload - skills created or modified in `~/.claude/skills` or `.claude/skills` are now immediately available without restarting the session
-- Added support for running skills and slash commands in a forked sub-agent context using `context: fork` in skill frontmatter
-- Added support for `agent` field in skills to specify agent type for execution
-- Added `language` setting to configure Claude's response language (e.g., language: "japanese")
-- Changed Shift+Enter to work out of the box in iTerm2, WezTerm, Ghostty, and Kitty without modifying terminal configs
-- Added `respectGitignore` support in `settings.json` for per-project control over @-mention file picker behavior
-- Added `IS_DEMO` environment variable to hide email and organization from the UI, useful for streaming or recording sessions
-- Fixed security issue where sensitive data (OAuth tokens, API keys, passwords) could be exposed in debug logs
-- Fixed files and skills not being properly discovered when resuming sessions with `-c` or `--resume`
-- Fixed pasted content being lost when replaying prompts from history using up arrow or Ctrl+R search
-- Fixed Esc key with queued prompts to only move them to input without canceling the running task
-- Reduced permission prompts for complex bash commands
-- Fixed command search to prioritize exact and prefix matches on command names over fuzzy matches in descriptions
-- Fixed PreToolUse hooks to allow `updatedInput` when returning `ask` permission decision, enabling hooks to act as middleware while still requesting user consent
-- Fixed plugin path resolution for file-based marketplace sources
-- Fixed LSP tool being incorrectly enabled when no LSP servers were configured
-- Fixed background tasks failing with "git repository not found" error for repositories with dots in their names
-- Fixed Claude in Chrome support for WSL environments
-- Fixed Windows native installer silently failing when executable creation fails
-- Improved CLI help output to display options and subcommands in alphabetical order for easier navigation
-- Added wildcard pattern matching for Bash tool permissions using `*` at any position in rules (e.g., `Bash(npm *)`, `Bash(* install)`, `Bash(git * main)`)
-- Added unified Ctrl+B backgrounding for both bash commands and agents - pressing Ctrl+B now backgrounds all running foreground tasks simultaneously
-- Added support for MCP `list_changed` notifications, allowing MCP servers to dynamically update their available tools, prompts, and resources without requiring reconnection
-- Added `/teleport` and `/remote-env` slash commands for claude.ai subscribers, allowing them to resume and configure remote sessions
-- Added support for disabling specific agents using `Task(AgentName)` syntax in settings.json permissions or the `--disallowedTools` CLI flag
-- Added hooks support to agent frontmatter, allowing agents to define PreToolUse, PostToolUse, and Stop hooks scoped to the agent's lifecycle
-- Added hooks support for skill and slash command frontmatter
-- Added new Vim motions: `;` and `,` to repeat f/F/t/T motions, `y` operator for yank with `yy`/`Y`, `p`/`P` for paste, text objects (`iw`, `aw`, `iW`, `aW`, `i"`, `a"`, `i'`, `a'`, `i(`, `a(`, `i[`, `a[`, `i{`, `a{`), `&gt;&gt;` and `&lt;&lt;` for indent/dedent, and `J` to join lines
-- Added `/plan` command shortcut to enable plan mode directly from the prompt
-- Added slash command autocomplete support when `/` appears anywhere in input, not just at the beginning
-- Added `--tools` flag support in interactive mode to restrict which built-in tools Claude can use during interactive sessions
-- Added `CLAUDE_CODE_FILE_READ_MAX_OUTPUT_TOKENS` environment variable to override the default file read token limit
-- Added support for `once: true` config for hooks
-- Added support for YAML-style lists in frontmatter `allowed-tools` field for cleaner skill declarations
-- Added support for prompt and agent hook types from plugins (previously only command hooks were supported)
-- Added Cmd+V support for image paste in iTerm2 (maps to Ctrl+V)
-- Added left/right arrow key navigation for cycling through tabs in dialogs
-- Added real-time thinking block display in Ctrl+O transcript mode
-- Added filepath to full output in background bash task details dialog
-- Added Skills as a separate category in the context visualization
-- Fixed OAuth token refresh not triggering when server reports token expired but local expiration check disagrees
-- Fixed session persistence getting stuck after transient server errors by recovering from 409 conflicts when the entry was actually stored
-- Fixed session resume failures caused by orphaned tool results during concurrent tool execution
-- Fixed a race condition where stale OAuth tokens could be read from the keychain cache during concurrent token refresh attempts
-- Fixed AWS Bedrock subagents not inheriting EU/APAC cross-region inference model configuration, causing 403 errors when IAM permissions are scoped to specific regions
-- Fixed API context overflow when background tasks produce large output by truncating to 30K chars with file path reference
-- Fixed a hang when reading FIFO files by skipping symlink resolution for special file types
-- Fixed terminal keyboard mode not being reset on exit in Ghostty, iTer</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/5aac2b1b6aa23b65cd146b7eac8af30bc858d6eb/CHANGELOG.md</guid>
-      <pubDate>Wed, 07 Jan 2026 21:30:49 +0000</pubDate>
     </item>
   </channel>
 </rss>
