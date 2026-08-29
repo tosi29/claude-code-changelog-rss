@@ -7,7 +7,84 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 28 Aug 2026 08:32:10 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 29 Aug 2026 05:11:58 +0000</lastBuildDate>
+    <item>
+      <title>v2.1.251</title>
+      <link>https://github.com/anthropics/claude-code/blob/f1af9b1f4b1fd4c776135381606edada82ef638e/CHANGELOG.md</link>
+      <description>- Added `PreModelSwitch` and `PostModelSwitch` hook events (block, confirm, or annotate a model switch); `SessionStart` resume hooks now receive session staleness and the estimated re-cache cost
+- Added live streaming of a foreground subagent's tool calls and results to Remote Control clients (background subagents, the default, still show status only)
+- Added a Spend limit bar to `/usage` and a `rate_limits.spend_limit` status line field for developers behind a Claude apps gateway with spend limits
+- Added a per-session prompt-cache line to `/cost` (hit ratio, misses, tokens re-cached, warm/cold) and a matching `prompt_cache` object for status line scripts
+- Added `attach`, `logs`, `stop`, `respawn`, and `rm` to `claude --help`; the `--resume` message for a running background session now names the exact `claude attach &lt;id&gt;` command
+- Fixed file tools (Read, Write, Edit) following a symlink swapped inside the working directory after the permission check, which could read or write outside the approved location
+- Fixed plugin commands declared in a marketplace entry being able to point outside the plugin directory; such paths are now rejected with a path-traversal error
+- Fixed project settings being able to enable detailed beta tracing or raw API body logging, and a lower-scope beta tracing endpoint bypassing an OTLP collector pinned by managed settings or a host app
+- Fixed the Workflow tool reading (and quoting in errors) a `scriptPath` outside what the session may read before the permission check ran
+- Fixed Grep and Glob not applying `Read(...)` deny rules to files reached through a symlinked search path
+- Fixed conversations getting stuck on "text content blocks must be non-empty" errors after a turn where the model produced only thinking
+- Fixed the first launch on a fresh install starting in default mode instead of auto mode for accounts whose startup default is auto mode
+- Fixed Opus 5 requests failing with "effort … is not supported when thinking is disabled" when effort was xhigh/max and thinking was turned off; effort is now sent as `high` in that case
+- Fixed replying to a message Claude Desktop delivered from another session: `SendMessage` to that session id now delivers through Claude Desktop instead of failing with "not reachable"
+- Fixed TUI lag with many parallel subagents: per-second progress ticks now replace their predecessor instead of piling up in the transcript
+- Fixed agent teams: a teammate's final answer not reaching the team lead — it now arrives in the idle notification instead of a content-free "available" notice
+- Fixed background subagents being unable to reply to a message from an unnamed sibling or parent agent (`from` was the agent type, which is not an address)
+- Fixed managed-settings `disableAutoMode` arriving mid-session not moving an already-running auto-mode session back to default mode
+- Fixed a "switch to Opus 1M for 5x more context" tip that appeared even when the current Opus model already has a 1M context window
+- Fixed Claude apps gateway sessions treating a stored Anthropic profile (e.g. a Console sign-in) as active: listing it in `/status` and retrying gateway 401s with it, though requests never use it
+- Fixed cloud sessions telling Claude the model had changed when the host was only setting the session's initial model
+- Fixed Remote Control reporting a failure when an organization's policy disables it; it now shows a single quiet notice instead
+- Fixed `/mcp reconnect` on Remote Control showing a generic withheld-detail error instead of the real remedy when a server was disabled in another session
+- Fixed `--input-format stream-json`: client-injected assistant tool calls sent without a message id were merged into the first one and their results lost, including when resuming older sessions
+- Fixed session transcripts being silently overwritten when a directory change relocated a session onto an existing same-ID transcript
+- Fixed background sessions and their subagents being unable to edit files inside a git worktree they created with `git worktree add`
+- Fixed background sessions occasionally starting without any plugin skills (and staying that way) when another Claude Code process was refreshing the plugin marketplace at the same moment
+- Fixed selecting text in an opened background session inside tmux over SSH: it now copies to the tmux buffer like a foreground session instead of falling back to OSC 52
+- Fixed SDK and cloud sessions hanging indefinitely when an SDK MCP server's handshake acknowledgment was lost; the wait now times out after 70 seconds and marks only that server failed
+- Fixed self-hosted runner leaving a stuck session's Bash tool processes running after the session was force-stopped
+- Fixed `/usage-credits` for Team and Enterprise members whose admin set the org's usage-credit limit to $0: it now offers to ask the admin instead of saying a cap was reached
+- Fixed `--worktree --tmux` with a merge-request number on a gitlab.com origin trying a doomed GitHub-style fetch first instead of fetching the GitLab ref directly
+- Fixed Ctrl+G failing with "Emacs quit unexpectedly" in background sessions for editors that open `/dev/tty`, such as `emacs -nw` and `micro`
+- Fixed an `additionalDirectories` entry containing a null byte crashing startup, or breaking `/add-dir` and later settings updates when it came from an SDK host, IDE, or hook; it is now skipped
+- Fixed the MCP server menu's copy shortcut: it now says how the sign-in URL was copied instead of always claiming success
+- Fixed italic text (such as the session recap line) rendering as highlighted blocks in GNU screen and in tmux sessions using a `screen` terminal type
+- Fixed `claude mcp add --header` and `claude mcp add-json` help text naming the wrong transports
+- Fixed `claude ultrareview` and `/ultrareview` waiting the full 30 minutes when the cloud session fails to start; they now stop early and report the reason
+- Fixed Bash permission checks auto-approving commands that assign an arithmetic expression to an integer shell variable (e.g. `OPTIND=1/0`, `RANDOM=2+2`); these now prompt for approval
+- Fixed backgrounded sessions (`←`, `/background`, `--bg`) losing a Vertex/Bedrock gateway (`ANTHROPIC_*_BASE_URL` + `CLAUDE_CODE_SKIP_*_AUTH`) exported in the shell, so every request failed
+- Fixed `claude --bg --model fable` on Max plans stopping to ask for usage credits while the interactive session on the same account still had Fable allowance
+- Fixed the one-time "make auto mode your default" offer appearing in unattended sessions (e.g. agent-team teammate panes), where a stray keypress could accept it unread
+- Fixed the managed-settings approval prompt re-appearing after signing in again to the same Claude apps gateway when the settings are unchanged
+- Fixed disabled `/bug` and `/share` reporting that `/feedback` was disabled; tips, `/help`, and refusal messages no longer suggest `/feedback` when an org policy or env var turns it off
+- Fixed cloud session creation advising GitHub setup after a transient GitHub connection failure — the message now says to retry instead
+- Improved CPU usage during turns in interactive sessions by cutting redundant UI re-renders
+- Improved install size: the native binary is about 5 MB smaller
+- Improved cloud sessions: when the session's network proxy drops a connection during a Bash command, the tool result now names the host and reason instead of only "connection reset"
+- Improved `/schedule` to explain that MCP servers configured in Claude Code can't be attached to cloud routines, instead of a bare "No MCP connectors" message
+- Improved framing of messages from your own subagents: Claude is told the sender is a worker inside this session, not an unrelated Claude session
+- Improved the prompt placeholder to read "Message @name…" while viewing a background subagent or fork transcript opened from the subagent panel or `/tasks`
+- Improved sanitization of MCP server names in error messages, menus, and command results
+- Improved Amazon Bedrock session start under `CLAUDE_CODE_PROVIDER_MANAGED_BY_HOST` (e.g. Claude Desktop): a session given a Bedrock model ID or ARN no longer waits for inference-profile discovery
+- Improved the managed settings approval dialog to list only the settings that changed since you last approved them
+- Improved retry when the model's tool call is malformed: the broken output is now dropped from the retry context, including on Bedrock, Vertex, and Foundry
+- Changed `/radio` to be available on Bedrock, Vertex AI, Foundry, and Claude Platform on AWS, and when telemetry is disabled
+- Changed Claude in Chrome so browser actions always go through Claude Code's permission checks, including in sessions with telemetry disabled, which previously used the Chrome extension's own prompts
+- Changed `CLAUDE_CODE_SUBAGENT_MODEL` to set the default subagent model rather than override everything: an agent definition's `model:` and an explicit per-spawn model now take precedence over it
+- Changed the default commit trailer to `Co-Authored-By: Claude Code` when the active model isn't a recognized Claude model (e.g. third-party models behind a custom `ANTHROPIC_BASE_URL`)
+- Changed the default model for seat-based Enterprise subscriptions to Opus 5, matching other premium plans
+- Changed `/effort` to save your default effort level per model, so each model keeps its own setting when you switch
+- Changed analytics to no longer turn off before sign-in solely because managed settings force gateway login (or cannot be read); they stay off once signed in to the gateway or via `DISABLE_TELEMETRY`
+- Changed the footer PR badge on Bedrock, Vertex, and Foundry, and when telemetry is off, to call the GitHub API directly (via `gh auth token`, `GH_TOKEN`, or `GITHUB_TOKEN`) instead of `gh pr view`
+- Changed how Bash command output files are created and read back when commands run in the sandbox, so a sandboxed command cannot redirect or replace them
+- Changed plugin/LSP install suggestions and the auto-mode default offer to wait until you've sent or cleared what you're typing, so the Enter that sends your prompt can't answer them
+- Changed server-managed settings that terminate sandbox TLS, route sandbox traffic through your own proxy, inject credentials, or weaken sandbox isolation to require approval before they apply
+- Changed `ANTHROPIC_CUSTOM_HEADERS` from managed or project settings to require approval when it sets a credential, org/tenant, routing, or API-behavior header (e.g. `Authorization`, `Host`)
+- Changed project-level `.claude/settings.json` `env` to no longer set `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_TMPDIR`, or `TMPDIR`/`TMP`/`TEMP`; set them in your shell, user, or managed settings instead
+- Removed syntax highlighting for six rarely used languages (1c, gml, isbl, mathematica, maxima, sqf); the binary is 2.5 MB smaller
+- [VSCode] Fixed the sign-in screen's "Bedrock, Foundry, or Vertex" button opening the docs at the top of the page instead of the third-party provider setup section
+- [VSCode] Changed the Remote Control banner to a footer pill (shown while Remote Control is on or has failed) that opens the session on claude.ai/code; turn it on or off with `/remote-control`</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/f1af9b1f4b1fd4c776135381606edada82ef638e/CHANGELOG.md</guid>
+      <pubDate>Fri, 28 Aug 2026 18:19:26 +0000</pubDate>
+    </item>
     <item>
       <title>v2.1.250</title>
       <link>https://github.com/anthropics/claude-code/blob/92bb6850f1bb51f4d18b03b23d643642f9d687b6/CHANGELOG.md</link>
@@ -5062,204 +5139,15 @@
       <pubDate>Tue, 27 Jan 2026 01:34:59 +0000</pubDate>
     </item>
     <item>
-      <title>v2.1.18</title>
-      <link>https://github.com/anthropics/claude-code/blob/e9a9efc1211bbd0a50ac0128c84526e3e355255a/CHANGELOG.md</link>
-      <description>- Added customizable keyboard shortcuts. Configure keybindings per context, create chord sequences, and personalize your workflow. Run `/keybindings` to get started. Learn more at https://code.claude.com/docs/en/keybindings</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/e9a9efc1211bbd0a50ac0128c84526e3e355255a/CHANGELOG.md</guid>
-      <pubDate>Fri, 23 Jan 2026 21:55:58 +0000</pubDate>
-    </item>
-    <item>
       <title>v2.1.19</title>
       <link>https://github.com/anthropics/claude-code/blob/e9a9efc1211bbd0a50ac0128c84526e3e355255a/CHANGELOG.md</link>
       <description>- Added env var `CLAUDE_CODE_ENABLE_TASKS`, set to `false` to keep the old system temporarily
 - Added shorthand `$0`, `$1`, etc. for accessing individual arguments in custom commands
 - Fixed crashes on processors without AVX instruction support
 - Fixed dangling Claude Code processes when terminal is closed by catching EIO errors from `process.exit()` and using SIGKILL as fallback
-- Fixed `/rename` and `/tag` not updating the correct session when resuming from a different directory (e.g., git worktrees)
-- Fixed resuming sessions by custom title not working when run from a different directory
-- Fixed pasted text content being lost when using prompt stash (Ctrl+S) and restore
-- Fixed agent list displaying "Sonnet (default)" instead of "Inherit (default)" for agents without an explicit model setting
-- Fixed backgrounded hook commands not returning early, potentially causing the session to wait on a process that was intentionally backgrounded
-- Fixed file write preview omitting empty lines
-- Changed skills without additional permissions or hooks to be allowed without requiring approval
-- Changed indexed argument syntax from `$ARGUMENTS.0` to `$ARGUMENTS[0]` (bracket syntax)
-- [SDK] Added replay of `queued_command` attachment messages as `SDKUserMessageReplay` events when `replayUserMessages` is enabled
-- [VSCode] Enabled session forking and rewind functionality for all users</description>
+- Fixed `/rename`</description>
       <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/e9a9efc1211bbd0a50ac0128c84526e3e355255a/CHANGELOG.md</guid>
       <pubDate>Fri, 23 Jan 2026 21:55:58 +0000</pubDate>
-    </item>
-    <item>
-      <title>v2.1.17</title>
-      <link>https://github.com/anthropics/claude-code/blob/10e6348e77d41af005e138f4c476e41b0762facf/CHANGELOG.md</link>
-      <description>- Fixed crashes on processors without AVX instruction support</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/10e6348e77d41af005e138f4c476e41b0762facf/CHANGELOG.md</guid>
-      <pubDate>Thu, 22 Jan 2026 21:45:53 +0000</pubDate>
-    </item>
-    <item>
-      <title>v2.1.16</title>
-      <link>https://github.com/anthropics/claude-code/blob/e431f5b4964748b4ef7ad8bf72e93d0736eda6d8/CHANGELOG.md</link>
-      <description>- Added new task management system, including new capabilities like dependency tracking
-- [VSCode] Added native plugin management support
-- [VSCode] Added ability for OAuth users to browse and resume remote Claude sessions from the Sessions dialog
-- Fixed out-of-memory crashes when resuming sessions with heavy subagent usage
-- Fixed an issue where the "context remaining" warning was not hidden after running `/compact`
-- Fixed session titles on the resume screen not respecting the user's language setting
-- [IDE] Fixed a race condition on Windows where the Claude Code sidebar view container would not appear on start</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/e431f5b4964748b4ef7ad8bf72e93d0736eda6d8/CHANGELOG.md</guid>
-      <pubDate>Thu, 22 Jan 2026 20:08:52 +0000</pubDate>
-    </item>
-    <item>
-      <title>v2.1.15</title>
-      <link>https://github.com/anthropics/claude-code/blob/052a1317c02ff4ecca15a8f25a885ab1de284516/CHANGELOG.md</link>
-      <description>- Added deprecation notification for npm installations - run `claude install` or see https://code.claude.com/docs/en/setup for more options
-- Improved UI rendering performance with React Compiler
-- Fixed the "Context left until auto-compact" warning not disappearing after running `/compact`
-- Fixed MCP stdio server timeout not killing child process, which could cause UI freezes</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/052a1317c02ff4ecca15a8f25a885ab1de284516/CHANGELOG.md</guid>
-      <pubDate>Wed, 21 Jan 2026 22:00:41 +0000</pubDate>
-    </item>
-    <item>
-      <title>v2.1.14</title>
-      <link>https://github.com/anthropics/claude-code/blob/a6a8045031de9ff3e44683264e2ed6d434a8c0b6/CHANGELOG.md</link>
-      <description>- Added history-based autocomplete in bash mode (`!`) - type a partial command and press Tab to complete from your bash command history
-- Added search to installed plugins list - type to filter by name or description
-- Added support for pinning plugins to specific git commit SHAs, allowing marketplace entries to install exact versions
-- Fixed a regression where the context window blocking limit was calculated too aggressively, blocking users at ~65% context usage instead of the intended ~98%
-- Fixed memory issues that could cause crashes when running parallel subagents
-- Fixed memory leak in long-running sessions where stream resources were not cleaned up after shell commands completed
-- Fixed `@` symbol incorrectly triggering file autocomplete suggestions in bash mode
-- Fixed `@`-mention menu folder click behavior to navigate into directories instead of selecting them
-- Fixed `/feedback` command generating invalid GitHub issue URLs when description is very long
-- Fixed `/context` command to show the same token count and percentage as the status line in verbose mode
-- Fixed an issue where `/config`, `/context`, `/model`, and `/todos` command overlays could close unexpectedly
-- Fixed slash command autocomplete selecting wrong command when typing similar commands (e.g., `/context` vs `/compact`)
-- Fixed inconsistent back navigation in plugin marketplace when only one marketplace is configured
-- Fixed iTerm2 progress bar not clearing properly on exit, preventing lingering indicators and bell sounds
-- Improved backspace to delete pasted text as a single token instead of one character at a time
-- [VSCode] Added `/usage` command to display current plan usage</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/a6a8045031de9ff3e44683264e2ed6d434a8c0b6/CHANGELOG.md</guid>
-      <pubDate>Tue, 20 Jan 2026 23:09:04 +0000</pubDate>
-    </item>
-    <item>
-      <title>v2.1.12</title>
-      <link>https://github.com/anthropics/claude-code/blob/74cc597eb5c1a604e955ce97e7e3b82524f1062c/CHANGELOG.md</link>
-      <description>- Fixed message rendering bug</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/74cc597eb5c1a604e955ce97e7e3b82524f1062c/CHANGELOG.md</guid>
-      <pubDate>Sat, 17 Jan 2026 16:17:56 +0000</pubDate>
-    </item>
-    <item>
-      <title>v2.1.10</title>
-      <link>https://github.com/anthropics/claude-code/blob/923d72749265a208dec86247651b8df31fc92477/CHANGELOG.md</link>
-      <description>- Added new `Setup` hook event that can be triggered via `--init`, `--init-only`, or `--maintenance` CLI flags for repository setup and maintenance operations
-- Added keyboard shortcut 'c' to copy OAuth URL when browser doesn't open automatically during login
-- Fixed a crash when running bash commands containing heredocs with JavaScript template literals like `${index + 1}`
-- Improved startup to capture keystrokes typed before the REPL is fully ready
-- Improved file suggestions to show as removable attachments instead of inserting text when accepted
-- [VSCode] Added install count display to plugin listings
-- [VSCode] Added trust warning when installing plugins</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/923d72749265a208dec86247651b8df31fc92477/CHANGELOG.md</guid>
-      <pubDate>Sat, 17 Jan 2026 01:38:55 +0000</pubDate>
-    </item>
-    <item>
-      <title>v2.1.11</title>
-      <link>https://github.com/anthropics/claude-code/blob/923d72749265a208dec86247651b8df31fc92477/CHANGELOG.md</link>
-      <description>- Fixed excessive MCP connection requests for HTTP/SSE transports</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/923d72749265a208dec86247651b8df31fc92477/CHANGELOG.md</guid>
-      <pubDate>Sat, 17 Jan 2026 01:38:55 +0000</pubDate>
-    </item>
-    <item>
-      <title>v2.1.9</title>
-      <link>https://github.com/anthropics/claude-code/blob/5a91286a82b5a113e1f32159a6ed55b0c54007e1/CHANGELOG.md</link>
-      <description>- Added `auto:N` syntax for configuring the MCP tool search auto-enable threshold, where N is the context window percentage (0-100)
-- Added `plansDirectory` setting to customize where plan files are stored
-- Added external editor support (Ctrl+G) in AskUserQuestion "Other" input field
-- Added session URL attribution to commits and PRs created from web sessions
-- Added support for `PreToolUse` hooks to return `additionalContext` to the model
-- Added `${CLAUDE_SESSION_ID}` string substitution for skills to access the current session ID
-- Fixed long sessions with parallel tool calls failing with an API error about orphan tool_result blocks
-- Fixed MCP server reconnection hanging when cached connection promise never resolves
-- Fixed Ctrl+Z suspend not working in terminals using Kitty keyboard protocol (Ghostty, iTerm2, kitty, WezTerm)</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/5a91286a82b5a113e1f32159a6ed55b0c54007e1/CHANGELOG.md</guid>
-      <pubDate>Fri, 16 Jan 2026 02:19:08 +0000</pubDate>
-    </item>
-    <item>
-      <title>v2.1.7</title>
-      <link>https://github.com/anthropics/claude-code/blob/6a2936ab79c01e4f078105584f8cae521e7851dc/CHANGELOG.md</link>
-      <description>- Added `showTurnDuration` setting to hide turn duration messages (e.g., "Cooked for 1m 6s")
-- Added ability to provide feedback when accepting permission prompts
-- Added inline display of agent's final response in task notifications, making it easier to see results without reading the full transcript file
-- Fixed security vulnerability where wildcard permission rules could match compound commands containing shell operators
-- Fixed false "file modified" errors on Windows when cloud sync tools, antivirus scanners, or Git touch file timestamps without changing content
-- Fixed orphaned tool_result errors when sibling tools fail during streaming execution
-- Fixed context window blocking limit being calculated using the full context window instead of the effective context window (which reserves space for max output tokens)
-- Fixed spinner briefly flashing when running local slash commands like `/model` or `/theme`
-- Fixed terminal title animation jitter by using fixed-width braille characters
-- Fixed plugins with git submodules not being fully initialized when installed
-- Fixed bash commands failing on Windows when temp directory paths contained characters like `t` or `n` that were misinterpreted as escape sequences
-- Improved typing responsiveness by reducing memory allocation overhead in terminal rendering
-- Enabled MCP tool search auto mode by default for all users. When MCP tool descriptions exceed 10% of the context window, they are automatically deferred and discovered via the MCPSearch tool instead of being loaded upfront. This reduces context usage for users with many MCP tools configured. Users can disable this by adding `MCPSearch` to `disallowedTools` in their settings.
-- Changed OAuth and API Console URLs from console.anthropic.com to platform.claude.com
-- [VSCode] Fixed `claudeProcessWrapper` setting passing the wrapper path instead of the Claude binary path</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/6a2936ab79c01e4f078105584f8cae521e7851dc/CHANGELOG.md</guid>
-      <pubDate>Wed, 14 Jan 2026 00:03:57 +0000</pubDate>
-    </item>
-    <item>
-      <title>v2.1.6</title>
-      <link>https://github.com/anthropics/claude-code/blob/f860f671dc050ea42076dff34edc33871329f7ac/CHANGELOG.md</link>
-      <description>- Added search functionality to `/config` command for quickly filtering settings
-- Added Updates section to `/doctor` showing auto-update channel and available npm versions (stable/latest)
-- Added date range filtering to `/stats` command - press `r` to cycle between Last 7 days, Last 30 days, and All time
-- Added automatic discovery of skills from nested `.claude/skills` directories when working with files in subdirectories
-- Added `context_window.used_percentage` and `context_window.remaining_percentage` fields to status line input for easier context window display
-- Added an error display when the editor fails during Ctrl+G
-- Fixed permission bypass via shell line continuation that could allow blocked commands to execute
-- Fixed false "File has been unexpectedly modified" errors when file watchers touch files without changing content
-- Fixed text styling (bold, colors) getting progressively misaligned in multi-line responses
-- Fixed the feedback panel closing unexpectedly when typing 'n' in the description field
-- Fixed rate limit warning appearing at low usage after weekly reset (now requires 70% usage)
-- Fixed rate limit options menu incorrectly auto-opening when resuming a previous session
-- Fixed numpad keys outputting escape sequences instead of characters in Kitty keyboard protocol terminals
-- Fixed Option+Return not inserting newlines in Kitty keyboard protocol terminals
-- Fixed corrupted config backup files accumulating in the home directory (now only one backup is created per config file)
-- Fixed `mcp list` and `mcp get` commands leaving orphaned MCP server processes
-- Fixed visual artifacts in ink2 mode when nodes become hidden via `display:none`
-- Improved the external CLAUDE.md imports approval dialog to show which files are being imported and from where
-- Improved the `/tasks` dialog to go directly to task details when there's only one background task running
-- Improved @ autocomplete with icons for different suggestion types and single-line formatting
-- Updated "Help improve Claude" setting fetch to refresh OAuth and retry when it fails due to a stale OAuth token
-- Changed task notification display to cap at 3 lines with overflow summary when multiple background tasks complete simultaneously
-- Changed terminal title to "Claude Code" on startup for better window identification
-- Removed ability to @-mention MCP servers to enable/disable - use `/mcp enable &lt;name&gt;` instead
-- [VSCode] Fixed usage indicator not updating after manual compact</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/f860f671dc050ea42076dff34edc33871329f7ac/CHANGELOG.md</guid>
-      <pubDate>Tue, 13 Jan 2026 02:25:43 +0000</pubDate>
-    </item>
-    <item>
-      <title>v2.1.5</title>
-      <link>https://github.com/anthropics/claude-code/blob/a856c62014f8d1cb24bfc19be94f170dae96ea4b/CHANGELOG.md</link>
-      <description>- Added `CLAUDE_CODE_TMPDIR` environment variable to override the temp directory used for internal temp files, useful for environments with custom temp directory requirements</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/a856c62014f8d1cb24bfc19be94f170dae96ea4b/CHANGELOG.md</guid>
-      <pubDate>Mon, 12 Jan 2026 18:48:06 +0000</pubDate>
-    </item>
-    <item>
-      <title>v2.1.4</title>
-      <link>https://github.com/anthropics/claude-code/blob/0359f24538eae61e0ef6ac6220e8a861811fe1bb/CHANGELOG.md</link>
-      <description>- Added `CLAUDE_CODE_DISABLE_BACKGROUND_TASKS` environment variable to disable all background task functionality including auto-backgrounding and the Ctrl+B shortcut
-- Fixed "Help improve Claude" setting fetch to refresh OAuth and retry when it fails due to a stale OAuth token</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/0359f24538eae61e0ef6ac6220e8a861811fe1bb/CHANGELOG.md</guid>
-      <pubDate>Sun, 11 Jan 2026 00:28:09 +0000</pubDate>
-    </item>
-    <item>
-      <title>v2.1.3</title>
-      <link>https://github.com/anthropics/claude-code/blob/4f18698a9ed25517861a75125b526e319bcf8354/CHANGELOG.md</link>
-      <description>- Merged slash commands and skills, simplifying the mental model with no change in behavior
-- Added release channel (`stable` or `latest`) toggle to `/config`
-- Added detection and warnings for unreachable permission rules, with warnings in `/doctor` and after saving rules that include the source of each rule and actionable fix guidance
-- Fixed plan files persisting across `/clear` commands, now ensuring a fresh plan file is used after clearing a conversation
-- Fixed false skill duplicate detection on filesystems with large inodes (e.g., ExFAT) by using 64-bit precision for inode values
-- Fixed mismatch between background task count in status bar and items shown in ta</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/4f18698a9ed25517861a75125b526e319bcf8354/CHANGELOG.md</guid>
-      <pubDate>Fri, 09 Jan 2026 23:32:24 +0000</pubDate>
     </item>
   </channel>
 </rss>
