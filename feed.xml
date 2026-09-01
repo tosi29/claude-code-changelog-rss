@@ -7,7 +7,17 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 31 Aug 2026 02:57:25 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 01 Sep 2026 03:04:52 +0000</lastBuildDate>
+    <item>
+      <title>v2.1.252</title>
+      <link>https://github.com/anthropics/claude-code/blob/f275fa282e76c5e5456912268f2c367a7f4f4797/CHANGELOG.md</link>
+      <description>- Fixed Bash commands failing with "task output swap refused (tasks dir moved or linked)" on some Macs
+- Fixed "always allow" not saving in a project that has no .claude/settings.local.json yet
+- Fixed Remote Control sessions hosted by Claude Desktop or VS Code stalling for minutes after a tool finished when the connection to claude.ai was degraded
+- Fixed background task notifications with very large failure output (for example git errors on a full disk) making the conversation exceed the API request size limit</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/f275fa282e76c5e5456912268f2c367a7f4f4797/CHANGELOG.md</guid>
+      <pubDate>Mon, 31 Aug 2026 19:46:49 +0000</pubDate>
+    </item>
     <item>
       <title>v2.1.251</title>
       <link>https://github.com/anthropics/claude-code/blob/f1af9b1f4b1fd4c776135381606edada82ef638e/CHANGELOG.md</link>
@@ -5133,21 +5143,9 @@
 - Changed the `/commit-push-pr` skill to automatically post PR URLs to Slack channels when configured via MCP tools
 - Changed the `/copy` command to be available to all users
 - Changed background agents to prompt for tool permissions before launching
-- Changed permission rules like `Bash(*)` to be accepted and treated as equivalent to `Bash`
-- Changed config backups to be timestamped and rotated (keeping 5 most recent) to prevent data loss</description>
+- Changed permission rules like `Bash(*)` to be accepted and treated as eq</description>
       <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/9f6b6d17de97d19a00bc202c77310753eeb8d35b/CHANGELOG.md</guid>
       <pubDate>Tue, 27 Jan 2026 01:34:59 +0000</pubDate>
-    </item>
-    <item>
-      <title>v2.1.19</title>
-      <link>https://github.com/anthropics/claude-code/blob/e9a9efc1211bbd0a50ac0128c84526e3e355255a/CHANGELOG.md</link>
-      <description>- Added env var `CLAUDE_CODE_ENABLE_TASKS`, set to `false` to keep the old system temporarily
-- Added shorthand `$0`, `$1`, etc. for accessing individual arguments in custom commands
-- Fixed crashes on processors without AVX instruction support
-- Fixed dangling Claude Code processes when terminal is closed by catching EIO errors from `process.exit()` and using SIGKILL as fallback
-- Fixed `/rename`</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/e9a9efc1211bbd0a50ac0128c84526e3e355255a/CHANGELOG.md</guid>
-      <pubDate>Fri, 23 Jan 2026 21:55:58 +0000</pubDate>
     </item>
   </channel>
 </rss>
