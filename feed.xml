@@ -7,7 +7,50 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 02 Sep 2026 02:25:27 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 03 Sep 2026 02:31:48 +0000</lastBuildDate>
+    <item>
+      <title>v2.1.259</title>
+      <link>https://github.com/anthropics/claude-code/blob/f173a697aa6486945f1b9c4aa9ce5383d2c87db6/CHANGELOG.md</link>
+      <description>- Added `managedMcpServers` managed setting: organizations can provide HTTP/SSE MCP servers to every user (same entry shape as `.mcp.json`); entries that name a command to run are skipped
+- Added `--permission-prompts none` for unattended headless hosts: anything that would prompt is denied automatically while the active permission mode (including auto mode) keeps deciding
+- Added recognition of `glab mr create/merge/close/reopen/note/update` so GitLab merge requests show as `MR !N` in the collapsed tool summary and refresh the footer MR badge
+- Added `--json` to `claude plugin validate` for a machine-readable validation report
+- Fixed concurrent sessions silently reverting each other's `~/.claude.json` changes — workspace trust no longer resets and MCP/project state is no longer lost when running many sessions at once
+- Fixed a conversation whose thinking was rejected once being rejected again on every later turn
+- Fixed Bash `Read()` deny rules not covering files given as option values (`--ignore-revs-file=.env`, `-f.env`, `@file`), `git diff`/`git grep` file operands, or `cd DIR &amp;&amp; cat FILE` compounds; `grep -r`/`cp -r` over a directory holding a denied file now asks
+- Fixed the prompt cache being invalidated when the OAuth token refreshed in sessions with telemetry disabled
+- Fixed fullscreen mode showing a blank conversation after a long turn with hundreds of tool calls
+- Fixed auto mode running a turn on a model it doesn't support when a command or skill's frontmatter `model:` named one; the turn now keeps the session model
+- Fixed `CLAUDE_CODE_MAX_CONTEXT_TOKENS` being ignored for Vertex-style model IDs (`@YYYYMMDD` suffix) of model versions Claude Code doesn't recognize
+- Fixed the live output preview of a running shell command hiding its newest lines when an earlier line wrapped
+- Fixed a background GitHub connection check that ran on every launch for claude.ai users; the result is now remembered across launches
+- Fixed `--resume` failing (and `--continue` opening an empty conversation) when a saved session contains an attachment entry with no payload
+- Fixed frontmatter `model:` on custom commands and skills being ignored in interactive sessions
+- Fixed Artifact publishing failing once with an "unexpected parameter `note`" error in conversations continued from an older version
+- Fixed managed `forceRemoteSettingsRefresh` being ignored at startup when a policy helper configured by MDM or the managed settings file had already run
+- Fixed worktree isolation refusing hook-created worktrees on machines where `git rev-parse` fails with a message other than "not a git repository"
+- Fixed OpenTelemetry metrics and events from cloud sessions missing the `user.email`, `organization.id`, and `user.account_uuid` attributes
+- Fixed MCP servers that disconnect while their tools are being listed at startup showing as connected with no tools instead of reporting the error
+- Fixed the file edit permission dialog sometimes showing a changed line cut short with no indication
+- Fixed repository detection dropping a known repo identity after a transient git probe failure
+- Fixed managed settings silently going unenforced when the managed-settings file, a drop-in, the MDM plist, or the HKLM value cannot be parsed: Claude Code now refuses to start and names the source
+- Fixed Stop not actually stopping background agents and workflows in remote-control sessions: killed tasks now stay visible and re-stoppable until their processes exit
+- Fixed resuming a workflow run while its previous stopped run was still exiting, which could run duplicate copies of its agents
+- Fixed marketplace repo URLs on github.com with a trailing slash or dangling `?`/`#` producing an unusable `.git` clone URL
+- Fixed blocking Stop hooks causing the turn after a block to lose the model's reasoning from that turn and, on some models, miss the prompt cache
+- Fixed remote (claude.ai) sessions taking 60 seconds to start a turn after a browser-hosted MCP server's page had gone away
+- Fixed worktree-isolated sessions refusing common Bash loops, xargs pipelines and launcher-wrapped commands that cannot reach the main checkout
+- Improved terminal resize and first-render performance for long responses by reusing text measurements
+- Improved `/workflows` agent detail: JSON outcomes are pretty-printed with syntax colors and real line breaks, and long outcomes fold behind an expand toggle
+- Improved headless/SDK session start: the first turn begins up to 50 ms sooner when MCP servers finish connecting
+- Improved `/install-github-app` to explain it is GitHub-only and point to the GitLab CI/CD docs when run inside a GitLab repository
+- Improved nested background subagent results to be saved in the parent subagent's transcript, so resumed subagents keep them and shared transcripts show the delivery
+- Changed `allowedMcpServers` to govern only servers users add: a literal `managed-mcp.json` server your allowlist used to filter out now loads on upgrade; use `deniedMcpServers` to keep it off
+- [VSCode] Added an Active quick filter and a status filter menu (Needs input, Working, Completed) to the session list sidebar
+- Fixed remote and scheduled sessions doing nothing after a connector-tool permission prompt was approved while the session was paused</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/f173a697aa6486945f1b9c4aa9ce5383d2c87db6/CHANGELOG.md</guid>
+      <pubDate>Wed, 02 Sep 2026 22:33:43 +0000</pubDate>
+    </item>
     <item>
       <title>v2.1.258</title>
       <link>https://github.com/anthropics/claude-code/blob/aef74afe01f65b602258d6102b0da9730ac6f0aa/CHANGELOG.md</link>
@@ -4877,14 +4920,6 @@
       <pubDate>Thu, 19 Feb 2026 23:27:35 +0000</pubDate>
     </item>
     <item>
-      <title>v2.1.46</title>
-      <link>https://github.com/anthropics/claude-code/blob/b757fc9ecdf77e450442e3ca9f9093a9da35952b/CHANGELOG.md</link>
-      <description>- Fixed orphaned CC processes after terminal disconnect on macOS
-- Added support for using claude.ai MCP connectors in Claude Code</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/b757fc9ecdf77e450442e3ca9f9093a9da35952b/CHANGELOG.md</guid>
-      <pubDate>Wed, 18 Feb 2026 21:37:52 +0000</pubDate>
-    </item>
-    <item>
       <title>v2.1.47</title>
       <link>https://github.com/anthropics/claude-code/blob/b757fc9ecdf77e450442e3ca9f9093a9da35952b/CHANGELOG.md</link>
       <description>- Fixed FileWriteTool line counting to preserve intentional trailing blank lines instead of stripping them with `trimEnd()`.
@@ -4927,51 +4962,9 @@
 - Fixed CJK wide characters causing misaligned timestamps and layout elements in the TUI (anthropics/claude-code#26084)
 - Fixed custom agent `model` field in `.claude/agents/*.md` being ignored when spawning team teammates (anthropics/claude-code#26064)
 - Fixed plan mode being lost after context compaction, causing the model to switch from planning to implementation mode (anthropics/claude-code#26061)
-- Fixed `alwaysThinkingEnabled: true` in settings.json not enabling thinking mode on Bedrock and Vertex providers (anthropics/claude-code#26074)
-- Fixed `tool_decision` OTel telemetry event not being emitted in headless/SDK mode (anthropics/claude-code#26059)
-- Fixed session name being lost after context compaction — renamed sessions now preserve their custom title through compaction (anthropics/claude-code#26121)
-- Increased initial session count in resume picker from 10 to 50 for faster session discovery (anthropics/claude-code#26123)
-- Windows: fixed worktree session matching when drive letter casing differs (anthropics/claude-code#26123)
-- Fixed `/resume &lt;session-id&gt;` failing to find sessions whose first message exceeds 16KB (anthropics/claude-code#25920)
-- Fixed "Always allow" on multiline bash commands creating invalid permission patterns that corrupt settings (anthropics/claude-code#25909)
-- Fixed React crash (error #31) when a skill's `argument-hint` in SKILL.md frontmatter uses YAML sequence syntax (e.g., `[topic: foo | bar]`) — the value is now properly coerced to a string (anthropics/claude-code#25826)
-- Fixed crash when using `/fork` on sessions that used web search — null entries in search results from transcript deserialization are now handled gracefully (anthropics/claude-code#25811)
-- Fixed read-only git commands triggering FSEvents file watcher loops on macOS by adding --no-optional-locks flag (anthropics/claude-code#25750)
-- Fixed custom agents and skills not being discovered when running from a git worktree — project-level `.claude/agents/` and `.claude/skills/` from the main repository are now included (anthropics/claude-code#25816)
-- Fixed non-interactive subcommands like `claude doctor` and `claude plugin validate` being blocked inside nested Claude sessions (anthropics/claude-code#25803)
-- Windows: Fixed the same CLAUDE.md file being loaded twice when drive letter casing differs between paths (anthropics/claude-code#25756)
-- Fixed inline code spans in markdown being incorrectly parsed as bash commands (anthropics/claude-code#25792)
-- Fixed teammate spinners not respecting custom spinnerVerbs from settings (anthropics/claude-code#25748)
-- Fixed shell commands permanently failing after a command deletes its own working directory (anthropics/claude-code#26136)
-- Fixed hooks (PreToolUse, PostToolUse) silently failing to execute on Windows by using Git Bash instead of cmd.exe (anthropics/claude-code#25981)
-- Fixed LSP `findReferences` and other location-based operations returning results from gitignored files (e.g., `node_modules/`, `venv/`) (anthropics/claude-code#26051)
-- Moved config backup files from home directory root to `~/.claude/backups/` to reduce home directory clutter (anthropics/claude-code#26130)
-- Fixed sessions with large first prompts (&gt;16KB) disappearing from the /resume list (anthropics/claude-code#26140)
-- Fixed shell functions with double-underscore prefixes (e.g., `__git_ps1`) not being preserved across shell sessions (anthropics/claude-code#25824)
-- Fixed spinner showing "0 tokens" counter before any tokens have been received (anthropics/claude-code#26105)
-- VSCode: Fixed conversation messages appearing dimmed while the AskUserQuestion dialog is open (anthropics/claude-code#26078)
-- Fixed background tasks failing in git worktrees due to remote URL resolution reading from worktree-specific gitdir instead of the main repository config (anthropics/claude-code#26065)
-- Fixed Right Alt key leaving visible `[25~` escape sequence residue in the input field on Windows/Git Bash terminals (anthropics/claude-code#25943)
-- The `/rename` command now updates the terminal tab title by default (anthropics/claude-code#25789)
-- Fixed Edit tool silently corrupting Unicode curly quotes (\u201c\u201d \u2018\u2019) by replacing them with straight quotes when making edits (anthropics/claude-code#26141)
-- Fixed OSC 8 hyperlinks only being clickable on the first line when link text wraps across multiple terminal lines.</description>
+- Fixe</description>
       <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/b757fc9ecdf77e450442e3ca9f9093a9da35952b/CHANGELOG.md</guid>
       <pubDate>Wed, 18 Feb 2026 21:37:52 +0000</pubDate>
-    </item>
-    <item>
-      <title>v2.1.45</title>
-      <link>https://github.com/anthropics/claude-code/blob/4523c004dd0c44a46118ad1e412092809e7540ce/CHANGELOG.md</link>
-      <description>- Added support for Claude Sonnet 4.6
-- Added support for reading `enabledPlugins` and `extraKnownMarketplaces` from `--add-dir` directories
-- Added `spinnerTipsOverride` setting to customize spinner tips — configure `tips` with an array of custom tip strings, and optionally set `excludeDefault: true` to show only your custom tips instead of the built-in ones
-- Added `SDKRateLimitInfo` and `SDKRateLimitEvent` types to the SDK, enabling consumers to receive rate limit status updates including utilization, reset times, and overage information
-- Fixed Agent Teams teammates failing on Bedrock, Vertex, and Foundry by propagating API provider environment variables to tmux-spawned processes (anthropics/claude-code#23561)
-- Fixed sandbox "operation not permitted" errors when writing temporary files on macOS by using the correct per-user temp directory (anthropics/claude-code#21654)
-- Fixed Task tool (backgrounded agents) crashing with a `ReferenceError` on completion (anthropics/claude-code#22087)
-- Fixed autocomplete suggestions not being accepted on Enter when images are pasted in the input
-- Fixed skills invoked by subagents</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/4523c004dd0c44a46118ad1e412092809e7540ce/CHANGELOG.md</guid>
-      <pubDate>Tue, 17 Feb 2026 18:53:01 +0000</pubDate>
     </item>
   </channel>
 </rss>
