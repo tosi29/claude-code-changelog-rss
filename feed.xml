@@ -7,7 +7,80 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 04 Sep 2026 02:27:50 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 05 Sep 2026 02:29:00 +0000</lastBuildDate>
+    <item>
+      <title>v2.1.261</title>
+      <link>https://github.com/anthropics/claude-code/blob/d7dbd9a09f59775726ed14bbea8fc9dfdff62f7b/CHANGELOG.md</link>
+      <description>- Added an "Organization policy" line to `/status` and `claude doctor` that says why your organization's policy could not be loaded, such as a proxy not passing the endpoint through
+- Added `bashOutputMaxChars` and `taskOutputMaxChars` settings to raise how much command and background-task output Claude receives inline before it is saved to a file, up to 128K characters
+- Added `--append-subagent-system-prompt-file` to read the subagent system prompt from a file, for prompts too large to pass on the command line
+- Added `/skill-doctor` to show which loaded skills go unused and what they cost in context, so you can prune them
+- Fixed typed or pasted characters occasionally landing out of order or being dropped during fast input or key repeat
+- Fixed `/add-dir &lt;subdirectory&gt;` printing a false "couldn't be resolved" error when the working directory is on a `/net` automount
+- Fixed the Bedrock setup wizard hanging when AWS or an AWS credential helper never responds (it now times out with a clear error), and its model checks failing behind a TLS-inspecting proxy
+- Fixed cloud sessions discarding a plugin synced from claude.ai when managed settings force-enable it in `enabledPlugins`, then falling back to a marketplace clone that could fail
+- Fixed being unable to delete the character immediately before an inline `[Image #N]` chip in the prompt input
+- Fixed resuming a session losing hook output and other context around parallel tool calls, which changed the resumed request
+- Fixed Remote Control showing a stale permission mode when a phone, browser, or claude.ai app attaches to a terminal session or after the mode changes in the terminal
+- Fixed Remote Control sessions showing as still working (stuck spinner and Stop button) after stopping a turn from a connected phone or browser, or after a local slash command like `/clear`
+- Fixed SDK and cloud sessions ignoring a Stop or interrupt sent just after the first prompt, before the turn had started; the turn now stops instead of running to completion
+- Fixed Remote Control uploading a session pulled with `/teleport` into the connected session, which appeared appended to the original on phone and web
+- Fixed Remote Control's inbound event stream failing behind TLS-inspecting corporate proxies on native Windows
+- Fixed Remote Control sessions showing the default effort level on claude.ai when the effort comes from settings
+- Fixed `gcpAuthRefresh` opening a browser at startup when the Google credential check was slow, even though the credential was still valid
+- Fixed claude.ai connectors staying absent for the whole session when the startup connector fetch timed out — the CLI now retries in the background
+- Fixed sustained high CPU usage when a background agent could not be resumed and its wake-up was retried in a tight loop
+- Fixed feature flags gated to a newer version occasionally applying to an older Claude Code version running on the same machine
+- Fixed `/usage` and the VS Code usage panel dropping a model-specific weekly limit row when the usage endpoint is rate limited or when opened right after startup
+- Fixed `claude -p --resume &lt;file&gt;` adopting a malformed session ID recorded in the transcript; it now resumes under a fresh session ID instead
+- Fixed the terminal progress indicator (iTerm2, Ghostty, ConEmu) showing the session as finished while a background workflow or agent was still running
+- Fixed a rare layout glitch where a box could render with the wrong height after its container switched between row and column direction
+- Fixed Claude apps gateway client IP when a trusted proxy appends a port to `X-Forwarded-For`; with an access list set, an unreadable entry now gets 403
+- Fixed Claude apps gateway telling Claude Desktop to export OpenTelemetry as JSON even when the terminal CLI uses protobuf, so protobuf-only collectors rejected Desktop's data
+- Fixed Desktop and web showing a session as busy while it only watches an artifact for updates
+- Fixed Claude in Chrome `file_upload` failing with "paths: expected array, received undefined" in local Cowork sessions run from the Claude Desktop app
+- Fixed `SendMessage` to an offline Remote Control session on another machine reading as delivered; the result now says delivery is queued until that machine reconnects
+- Fixed plugin install hints from CLIs run in background Bash commands: they are now detected, and the raw `&lt;claude-code-hint&gt;` tag no longer leaks into the conversation
+- Fixed in-process agent-team teammates re-sending their first-turn tool and skill announcements on the second turn, which changed the request prefix and missed the prompt cache
+- Improved the `/model` picker and the VS Code model pill to show a model's name instead of its raw Bedrock, Vertex AI, or LLM gateway ID when Claude Code recognizes it
+- Improved startup on Google Vertex AI when `GOOGLE_APPLICATION_CREDENTIALS` is set: API client creation no longer re-runs Google Cloud project discovery or spawns extra `gcloud` processes
+- Improved streaming performance: already-rendered blocks are no longer re-checked by layout on each update
+- Improved the dangerous-`rm` safety prompt to also catch `rm -rf` on positional parameters and inside double-quoted `sh -c` scripts
+- Improved handling when the API sends no response headers: the retry now waits up to `API_TIMEOUT_MS` (10 minutes by default) instead of another 3 minutes, and the messages say what to change
+- Changed a Claude apps gateway 403 on the managed settings load (at startup or after `/login`) to say Claude Code may not be enabled for the organization, instead of advising a new sign-in
+- Changed machines whose managed settings pin `forceLoginMethod: "gateway"` to ignore a leftover API key or claude.ai login and ask for `/login`; Bedrock, Vertex AI, and Foundry sessions are unaffected
+- Changed auto mode to treat a link that packs content into a public diagram renderer's URL as an upload to that site: no longer auto-approved unless you asked for it
+- Changed the prompt's word-editing keys to match Bash: Ctrl+W deletes back to whitespace, Alt+F and Alt+D stop at word end, punctuation separates words; `keybindingFlavor` no longer has any effect
+- Changed `/context` token counting to use a local estimate when the token-counting API is unavailable, instead of extra small-model requests
+- [VSCode] Added a "Build a custom style" walkthrough to the Output styles menu that writes a custom output style file and lists it right away
+- [VSCode] Added an Add server form and a Remove action to the MCP servers dialog, so MCP servers can be added and removed without leaving the IDE
+- [VSCode] Added a hollow ring in the session list for sessions open in a terminal, another VS Code window, or Claude Desktop, so they no longer look closed
+- [VSCode] Added a fold button to permission and question prompts so the conversation behind them can be read without dismissing them; the space beside the prompt now scrolls the conversation
+- [VSCode] Added "Archive session" to the session list's right-click menu and gave Unarchive its own icon
+- [VSCode] Fixed a session teleported from Claude Code on the web treating a question that was cut off when the cloud session shut down as declined
+- [VSCode] Fixed the session tab's Rename box opening empty for a tab restored with the window; it now starts with the current name
+- [VSCode] Fixed collapsed sections in the session list panel briefly showing expanded each time the panel loaded
+- [VSCode] Fixed Focus view showing a tool call as still running after Claude had moved on, such as while a question waited for your answer
+- [VSCode] Fixed the session list's active-row highlight going stale when an unfocused Claude tab's session ID is corrected
+- [VSCode] Fixed Cmd/Ctrl+Shift+T reopen and deep-link opens placing the Claude tab outside the Claude editor group when a Claude tab has focus
+- [VSCode] Fixed the session tab's "Add to group" putting a session opened from Claude Code on the Web in two groups; it now moves the entry the session list shows
+- [VSCode] Fixed the model picker showing models an organization has since disabled until the window was reloaded twice
+- [VSCode] Fixed a tab opened from the session list jumping back to that session, and a tab opened from a Web session restarting its teleport or staying empty, after VS Code reloads the tab's view
+- [VSCode] Fixed `/btw` side-question history from earlier sessions being overwritten when a question is asked right after a window reload or while a settings file has errors
+- [VSCode] Fixed the pending question card not reappearing after the Claude panel reloads when signed in with a Claude.ai or Console account
+- [VSCode] Fixed claude.ai-only features staying visible in a window's other Claude panels after one panel picked up a third-party provider from a settings file
+- [VSCode] Fixed the sign-in screen appearing despite the Disable Login Prompt setting when Claude Code reports no login or a request fails for lack of one
+- [VSCode] Fixed the next queued permission prompt keeping text typed on the previous prompt and accepting an immediate second click
+- [VSCode] Fixed install-plugin links opening the Claude sidebar without the install dialog in a window where only the session list had been shown
+- [VSCode] Fixed the sidebar usage meter staying empty on a new window until the Account &amp; usage dialog was opened, and a 0% usage limit being left out of the meter
+- [VSCode] Fixed "Start new session in this group" losing the group after New conversation, and a missing unread dot for a session that finished before the sidebar's unread list loaded
+- [VSCode] Fixed the editor tab badge showing unread during a running turn or missing on a tab opened from the session list, and "Add Session Tab to Group" doing nothing for an archived session
+- [VSCode] Fixed "Enable Remote Control for all sessions" so flipping it also applies right away to sessions open in other VS Code windows
+- [VSCode] Fixed the session list's Open filter for sessions continued from claude.ai whose tab was still recorded under the web session, and labeled the filter menu's sections for screen readers
+- [VSCode] Changed the model picker to one flat list of every model, with rows kept for older model spellings listed last</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/d7dbd9a09f59775726ed14bbea8fc9dfdff62f7b/CHANGELOG.md</guid>
+      <pubDate>Fri, 04 Sep 2026 19:58:03 +0000</pubDate>
+    </item>
     <item>
       <title>v2.1.260</title>
       <link>https://github.com/anthropics/claude-code/blob/b3f0e501b79fe5cfc8c10d18cf3b0b6715c5c2fb/CHANGELOG.md</link>
@@ -4770,178 +4843,9 @@
 - Improved macOS startup for Claude.ai enterprise/team users by skipping an unnecessary keychain lookup
 - Improved MCP `-p` startup by pipelining claude.ai config fetch with local connections and using a concurrency pool instead of sequential batching
 - Improved voice startup by removing imperceptible warmup pulse animations that were causing re-render stutter
-- Improved MCP binary content handling: tools returning PDFs, Office documents, or audio now save decoded bytes to disk with the correct file extension instead of dumping raw base64 into the conversation context. WebFetch also saves binary responses alongside its summary.
-- Improved memory usage in long sessions by stabilizing `onSubmit` across message updates
-- Improved LSP tool rendering and memory context building to no longer read entire files
-- Improved session upload and memory sync to avoid reading large files into memory before size/binary checks
-- Improved file operation performance by avoiding reading file contents for existence checks (6 sites)
-- Improved documentation to clarify that `--append-system-prompt-file` and `--system-prompt-file` work in interactive mode (the docs previously said print mode only)
-- Reduced baseline memory by ~16MB by deferring Yoga WASM preloading
-- Reduced memory footprint for SDK and CCR sessions using stream-json output
-- Reduced memory usage when resuming large sessions (including compacted history)
-- Reduced token usage on multi-agent tasks with more concise subagent final reports
-- Changed Sonnet 4.5 users on Pro/Max/Team Premium to be automatically migrated to Sonnet 4.6
-- Changed the `/resume` picker to show your most recent prompt instead of the first one. This also resolves some titles appearing as `(session)`.
-- Changed claude.ai MCP connector failures to show a notification instead of silently disappearing from the tool list
-- Changed example command suggestions to be generated deterministically instead of calling Haiku
-- Changed resuming after compaction to no longer produce a preamble recap before continuing
-- [SDK] Changed task creation to no longer require the `activeForm` field — the spinner falls back to the task subject
-- [VSCode] Added compaction display as a collapsible "Compacted chat" card with the summary inside
-- [VSCode] The permission mode picker now respects `permissions.disableBypassPermissionsMode` from your effective Claude Code settings (including managed/policy settings) — when set to `disable`, bypass permissions mode is hidden from the picker
-- [VSCode] Fixed RTL text (Arabic, Hebrew, Persian) rendering reversed in the chat panel (regression in v2.1.63)</description>
+- Improved MCP binary content handling: tools returning PDFs, Office documents, or audio now save decoded bytes to disk with th</description>
       <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/9582ad480f687bbeaf0025852ac4f020b07f20bb/CHANGELOG.md</guid>
       <pubDate>Thu, 05 Mar 2026 00:25:31 +0000</pubDate>
-    </item>
-    <item>
-      <title>v2.1.68</title>
-      <link>https://github.com/anthropics/claude-code/blob/0b3f7cbbbd8c0e78c4bb63134ead608c555df5de/CHANGELOG.md</link>
-      <description>- Opus 4.6 now defaults to medium effort for Max and Team subscribers. Medium effort works well for most tasks — it's the sweet spot between speed and thoroughness. You can change this anytime with `/model`
-- Re-introduced the "ultrathink" keyword to enable high effort for the next turn
-- Removed Opus 4 and 4.1 from Claude Code on the first-party API — users with these models pinned are automatically moved to Opus 4.6</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/0b3f7cbbbd8c0e78c4bb63134ead608c555df5de/CHANGELOG.md</guid>
-      <pubDate>Wed, 04 Mar 2026 10:10:30 +0000</pubDate>
-    </item>
-    <item>
-      <title>v2.1.66</title>
-      <link>https://github.com/anthropics/claude-code/blob/a8335230bc62baae60c8eb18ae77ab32123454bd/CHANGELOG.md</link>
-      <description>- Reduced spurious error logging</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/a8335230bc62baae60c8eb18ae77ab32123454bd/CHANGELOG.md</guid>
-      <pubDate>Wed, 04 Mar 2026 02:23:29 +0000</pubDate>
-    </item>
-    <item>
-      <title>v2.1.63</title>
-      <link>https://github.com/anthropics/claude-code/blob/cd4956871a56b07d9d2a6cb538fae109d04c9d57/CHANGELOG.md</link>
-      <description>- Added `/simplify` and `/batch` bundled slash commands
-- Fixed local slash command output like /cost appearing as user-sent messages instead of system messages in the UI
-- Project configs &amp; auto memory now shared across git worktrees of the same repository
-- Added `ENABLE_CLAUDEAI_MCP_SERVERS=false` env var to opt out from making claude.ai MCP servers available
-- Improved `/model` command to show the currently active model in the slash command menu
-- Added HTTP hooks, which can POST JSON to a URL and receive JSON instead of running a shell command
-- Fixed listener leak in bridge polling loop
-- Fixed listener leak in MCP OAuth flow cleanup
-- Added manual URL paste fallback during MCP OAuth authentication. If the automatic localhost redirect doesn't work, you can paste the callback URL to complete authentication.
-- Fixed memory leak when navigating hooks configuration menu
-- Fixed listener leak in interactive permission handler during auto-approvals
-- Fixed file count cache ignoring glob ignore patterns
-- Fixed memory leak in bash command prefix cache
-- Fixed MCP tool/resource cache leak on server reconnect
-- Fixed IDE host IP detection cache incorrectly sharing results across ports
-- Fixed WebSocket listener leak on transport reconnect
-- Fixed memory leak in git root detection cache that could cause unbounded growth in long-running sessions
-- Fixed memory leak in JSON parsing cache that grew unbounded over long sessions
-- VSCode: Fixed remote sessions not appearing in conversation history
-- Fixed a race condition in the REPL bridge where new messages could arrive at the server interleaved with historical messages during the initial connection flush, causing message ordering issues.
-- Fixed memory leak where long-running teammates retained all messages in AppState even after conversation compaction
-- Fixed a memory leak where MCP server fetch caches were not cleared on disconnect, causing growing memory usage with servers that reconnect frequently
-- Improved memory usage in long sessions with subagents by stripping heavy progress message payloads during context compaction
-- Added "Always copy full response" option to the `/copy` picker. When selected, future `/copy` commands will skip the code block picker and copy the full response directly.
-- VSCode: Added session rename and remove actions to the sessions list
-- Fixed `/clear` not resetting cached skills, which could cause stale skill content to persist in the new conversation</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/cd4956871a56b07d9d2a6cb538fae109d04c9d57/CHANGELOG.md</guid>
-      <pubDate>Sat, 28 Feb 2026 03:44:47 +0000</pubDate>
-    </item>
-    <item>
-      <title>v2.1.62</title>
-      <link>https://github.com/anthropics/claude-code/blob/1f48d799b9ef25a5c9cec36dd9a4c6f409b722f6/CHANGELOG.md</link>
-      <description>- Fixed prompt suggestion cache regression that reduced cache hit rates</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/1f48d799b9ef25a5c9cec36dd9a4c6f409b722f6/CHANGELOG.md</guid>
-      <pubDate>Fri, 27 Feb 2026 01:55:28 +0000</pubDate>
-    </item>
-    <item>
-      <title>v2.1.61</title>
-      <link>https://github.com/anthropics/claude-code/blob/7ec9125c5454dcd1f60b7ea5056e003bdd54caa4/CHANGELOG.md</link>
-      <description>- Fixed concurrent writes corrupting config file on Windows</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/7ec9125c5454dcd1f60b7ea5056e003bdd54caa4/CHANGELOG.md</guid>
-      <pubDate>Thu, 26 Feb 2026 22:33:45 +0000</pubDate>
-    </item>
-    <item>
-      <title>v2.1.59</title>
-      <link>https://github.com/anthropics/claude-code/blob/d6ab0eafec1692c070a835504b662881649d7112/CHANGELOG.md</link>
-      <description>- Claude automatically saves useful context to auto-memory. Manage with /memory
-- Added `/copy` command to show an interactive picker when code blocks are present, allowing selection of individual code blocks or the full response.
-- Improved "always allow" prefix suggestions for compound bash commands (e.g. `cd /tmp &amp;&amp; git fetch &amp;&amp; git push`) to compute smarter per-subcommand prefixes instead of treating the whole command as one
-- Improved ordering of short task lists
-- Improved memory usage in multi-agent sessions by releasing completed subagent task state
-- Fixed MCP OAuth token refresh race condition when running multiple Claude Code instances simultaneously
-- Fixed shell commands not showing a clear error message when the working directory has been deleted
-- Fixed config file corruption that could wipe authentication when multiple Claude Code instances ran simultaneously</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/d6ab0eafec1692c070a835504b662881649d7112/CHANGELOG.md</guid>
-      <pubDate>Thu, 26 Feb 2026 00:58:38 +0000</pubDate>
-    </item>
-    <item>
-      <title>v2.1.58</title>
-      <link>https://github.com/anthropics/claude-code/blob/ee4ff289f0756a21aa64f8ec04018c0ffa94c19e/CHANGELOG.md</link>
-      <description>- Expand Remote Control to more users</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/ee4ff289f0756a21aa64f8ec04018c0ffa94c19e/CHANGELOG.md</guid>
-      <pubDate>Wed, 25 Feb 2026 19:59:14 +0000</pubDate>
-    </item>
-    <item>
-      <title>v2.1.56</title>
-      <link>https://github.com/anthropics/claude-code/blob/db3858a5589c8e6ffeb4cf765edc23cd4dbf900a/CHANGELOG.md</link>
-      <description>- VS Code: Fixed another cause of "command 'claude-vscode.editor.openLast' not found" crashes</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/db3858a5589c8e6ffeb4cf765edc23cd4dbf900a/CHANGELOG.md</guid>
-      <pubDate>Wed, 25 Feb 2026 06:27:03 +0000</pubDate>
-    </item>
-    <item>
-      <title>v2.1.55</title>
-      <link>https://github.com/anthropics/claude-code/blob/a0128f4a40952ce80cc7f5aba54334a74020a758/CHANGELOG.md</link>
-      <description>- Fixed BashTool failing on Windows with EINVAL error</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/a0128f4a40952ce80cc7f5aba54334a74020a758/CHANGELOG.md</guid>
-      <pubDate>Wed, 25 Feb 2026 03:14:59 +0000</pubDate>
-    </item>
-    <item>
-      <title>v2.1.53</title>
-      <link>https://github.com/anthropics/claude-code/blob/6e7f65eb95693516424e3e21b93c700e1a41e069/CHANGELOG.md</link>
-      <description>- Fixed a UI flicker where user input would briefly disappear after submission before the message rendered
-- Fixed bulk agent kill (ctrl+f) to send a single aggregate notification instead of one per agent, and to properly clear the command queue
-- Fixed graceful shutdown sometimes leaving stale sessions when using Remote Control by parallelizing teardown network calls
-- Fixed `--worktree` sometimes being ignored on first launch
-- Fixed a panic ("switch on corrupted value") on Windows
-- Fixed a crash that could occur when spawning many processes on Windows
-- Fixed a crash in the WebAssembly interpreter on Linux x64 &amp; Windows x64
-- Fixed a crash that sometimes occurred after 2 minutes on Windows ARM64</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/6e7f65eb95693516424e3e21b93c700e1a41e069/CHANGELOG.md</guid>
-      <pubDate>Wed, 25 Feb 2026 00:12:59 +0000</pubDate>
-    </item>
-    <item>
-      <title>v2.1.52</title>
-      <link>https://github.com/anthropics/claude-code/blob/8f0fe03e5687b10134d400c10240071523ace5c5/CHANGELOG.md</link>
-      <description>- VS Code: Fixed extension crash on Windows ("command 'claude-vscode.editor.openLast' not found")</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/8f0fe03e5687b10134d400c10240071523ace5c5/CHANGELOG.md</guid>
-      <pubDate>Tue, 24 Feb 2026 06:39:08 +0000</pubDate>
-    </item>
-    <item>
-      <title>v2.1.51</title>
-      <link>https://github.com/anthropics/claude-code/blob/6aecb15d9877408a37831f0cd481080d94d1c45e/CHANGELOG.md</link>
-      <description>- Added `claude remote-control` subcommand for external builds, enabling local environment serving for all users.
-- Updated plugin marketplace default git timeout from 30s to 120s and added `CLAUDE_CODE_PLUGIN_GIT_TIMEOUT_MS` to configure.
-- Added support for custom npm registries and specific version pinning when installing plugins from npm sources
-- BashTool now skips login shell (`-l` flag) by default when a shell snapshot is available, improving command execution performance. Previously this required setting `CLAUDE_BASH_NO_LOGIN=true`.
-- Fixed a security issue where `statusLine` and `fileSuggestion` hook commands could execute without workspace trust acceptance in interactive mode.
-- Tool results larger than 50K characters are now persisted to disk (previously 100K). This reduces context window usage and improves conversation longevity.
-- Fixed a bug where duplicate `control_response` messages (e.g. from WebSocket reconnects) could cause API 400 errors by pushing duplicate assistant messages into the conversation.
-- Added `CLAUDE_CODE_ACCOUNT_UUID`, `CLAUDE_CODE_USER_EMAIL`, and `CLAUDE_CODE_ORGANIZATION_UUID` environment variables for SDK callers to provide account info synchronously, eliminating a race condition where early telemetry events lacked account metadata.
-- Fixed slash command autocomplete crashing when a plugin's SKILL.md description is a YAML array or other non-string type
-- The `/model` picker now shows human-readable labels (e.g., "Sonnet 4.5") instead of raw model IDs for pinned model versions, with an upgrade hint when a newer version is available.
-- Managed settings can now be set via macOS plist or Windows Registry. Learn more at https://code.claude.com/docs/en/settings#settings-files</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/6aecb15d9877408a37831f0cd481080d94d1c45e/CHANGELOG.md</guid>
-      <pubDate>Tue, 24 Feb 2026 01:40:09 +0000</pubDate>
-    </item>
-    <item>
-      <title>v2.1.50</title>
-      <link>https://github.com/anthropics/claude-code/blob/3ad3231f0f3a9ff4e1be18d20cbea1e9955d0047/CHANGELOG.md</link>
-      <description>- Added support for `startupTimeout` configuration for LSP servers
-- Added `WorktreeCreate` and `WorktreeRemove` hook events, enabling custom VCS setup and teardown when agent worktree isolation creates or removes worktrees.
-- Fixed a bug where resumed sessions could be invisible when the working directory involved symlinks, because the session storage path was resolved at different times during startup. Also fixed session data loss on SSH disconnect by flushing session data before hooks and analytics in the graceful shutdown sequence.
-- Linux: Fixed native modules not loading on systems with glibc older than 2.30 (e.g., RHEL 8)
-- Fixed memory leak in agent teams where completed teammate tasks were never garbage collected from session state
-- Fixed `CLAUDE_CODE_SIMPLE` to fully strip down skills, session memory, custom agents, and CLAUDE.md token counting
-- Fixed `/mcp reconnect` freezing the CLI when given a server name that doesn't exist
-- Fixed memory leak where completed task state objects were never removed from AppState
-- Added support for `isolation: worktree` in agent definitions, allowing agents to declaratively run in isolated git worktrees.
-- `CLAUDE_CODE_SIMPLE` mode now also disables MCP tools, attachments, hooks, and CLAUDE.md file loading for a fully minimal experience.</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/3ad3231f0f3a9ff4e1be18d20cbea1e9955d0047/CHANGELOG.md</guid>
-      <pubDate>Fri, 20 Feb 2026 23:48:06 +0000</pubDate>
     </item>
   </channel>
 </rss>
