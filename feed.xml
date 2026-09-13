@@ -7,7 +7,14 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 12 Sep 2026 02:40:02 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 13 Sep 2026 02:38:21 +0000</lastBuildDate>
+    <item>
+      <title>v2.1.270</title>
+      <link>https://github.com/anthropics/claude-code/blob/2b40e76d3f03b9070e2431e0bd05b4f3ace77982/CHANGELOG.md</link>
+      <description>- Fixed read-only git commands in Bash unexpectedly asking for permission after a session had been running for a while (regression in 2.1.269)</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/2b40e76d3f03b9070e2431e0bd05b4f3ace77982/CHANGELOG.md</guid>
+      <pubDate>Sat, 12 Sep 2026 19:45:38 +0000</pubDate>
+    </item>
     <item>
       <title>v2.1.269</title>
       <link>https://github.com/anthropics/claude-code/blob/df52d04a4e65195c1621fe6222e0564bcccb1804/CHANGELOG.md</link>
@@ -4700,8 +4707,7 @@
 - Fixed `/btw` not including pasted text when used during an active response
 - Fixed a race where fast Cmd+Tab followed by paste could beat the clipboard copy under tmux
 - Fixed terminal tab title not updating with an auto-generated session description
-- Fixed invisible hook attachments inflating the message count in transcript mode
-- Fixed Remote Control sessions showing a generic title instead of deriving fr</description>
+- Fi</description>
       <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/6aadfbdca2c29f498f579509a56000e4e8daaf90/CHANGELOG.md</guid>
       <pubDate>Fri, 20 Mar 2026 22:24:03 +0000</pubDate>
     </item>
