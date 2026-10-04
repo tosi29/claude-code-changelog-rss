@@ -7,7 +7,40 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 03 Oct 2026 03:21:01 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 04 Oct 2026 03:48:39 +0000</lastBuildDate>
+    <item>
+      <title>v2.1.289</title>
+      <link>https://github.com/anthropics/claude-code/blob/2bfb629dfaff0c8318047a4beb93cf1dc5b58b18/CHANGELOG.md</link>
+      <description>- Fixed a deny or ask rule on a nested part of a compound shell command not holding over a user-installed mod's approval on managed machines
+- Fixed the terminal freezing on short code blocks with many unclosed `&lt;script&gt;` tags or deeply nested `${` substitutions
+- Fixed `Read` deny rules not applying to files @-mentioned, changed, or selected in the IDE through a symlink
+- [VSCode] Reverted a 2.1.288 change to `claude auth status` that may have made sign-outs more frequent
+- Improved how quickly large files open in a plugin code pane by laying the highlighted view out once at its final width
+- Fixed `plugin list`, `plugin eval` and `plugin update` showing a stale copy of a plugin installed from a local folder marketplace, and hot reload for a symlinked `--plugin-dir`
+- Fixed installed mods not loading in the first session after an upgrade
+- Fixed a plugin's rows above the prompt showing a stale row while the Background tasks dialog was open in fullscreen
+- Fixed plugin panes drawing nothing when a link used a localhost address, an `@` in its path, an uppercase host or a `file:` path
+- Fixed a user-installed plugin being able to rewrite the descriptions of an organization-managed MCP server's sign-in tools
+- Fixed a freeze or forced quit at launch when a plugin drew a Box with a border style the terminal does not know
+- Fixed supervised and background sessions ending when a plugin's on-screen handler threw asynchronously
+- Fixed sessions ending with an interface error when a plugin region with no height kept growing
+- Fixed Bash deny and ask rules missing a command behind an environment variable prefix with an expanded value (e.g. `TZ="$HOME" rm -rf build`) when the sandbox auto-allows commands
+- Fixed a Bash deny or ask rule being skipped under sandbox auto-allow when a bare variable assignment came before the command
+- Fixed `claude plugin validate` skipping the plugin when the folder also holds a marketplace manifest
+- Added `agent.spawn` for teammates, one agent id across plugin hook events, and idle and waiting states in `$.agent.list()`
+- Fixed sessions ending with "unrecoverable interface error" when a value a mod's `ui.render` hook wrote made a row throw while drawn; the engine now draws its own row instead
+- Fixed text with a tab, a stray escape and a C1 control, or a short text with a tab and CRLF line endings, drawing over the rows below it
+- Fixed right-aligned content in a mod's pane or band drawing under the close mark or `[-]`, which now also keep one column in from the terminal's edge
+- Fixed a mod's `Client` that fails while drawn taking down everything the mod drew around it; it now fails alone and raises `ui.fault`
+- Fixed `claude plugin validate` failing an Anthropic marketplace's own plugin and listing a clean `plugin.json` in `--json`
+- Fixed a mod's band that fails to draw briefly telling the cards under it to step aside
+- Fixed a failed plugin component showing `Error` or nothing as its reason when the failure carried no message
+- Improved the line a mod's author sees when its band or pane fails to draw: it names the mod and says nothing was drawn
+- Fixed published artifact pages freezing or crashing the reader's browser tab on short code blocks with many unclosed `&lt;script&gt;` tags
+- Fixed a mod's Client region staying failed for the whole session after the terminal threw while drawing it</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/2bfb629dfaff0c8318047a4beb93cf1dc5b58b18/CHANGELOG.md</guid>
+      <pubDate>Sat, 03 Oct 2026 23:06:56 +0000</pubDate>
+    </item>
     <item>
       <title>v2.1.288</title>
       <link>https://github.com/anthropics/claude-code/blob/1c229fcd1e1e4e452e29a8f116b45fe4cfe2c528/CHANGELOG.md</link>
@@ -3910,46 +3943,9 @@
 - Fixed Esc, Ctrl-C, and Ctrl-D not working while `/share` is uploading
 - Improved `/install-github-app`: GitHub Actions workflow setup is now optional — you can install just the GitHub App and skip the workflow/secret steps
 - Improved `/btw` with ←/→ arrow navigation to step through earlier answers
-- Improved `/plugin` to surface plugins you haven't used recently so you can clean them up
-- [VSCode] Fixed extension becoming unresponsive when resuming a large session</description>
+- Improved `/plugin` to surface plugins you haven't used recently so you can clean</description>
       <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/2aa6ef3d35ec45f8eea1c44c672781f183333809/CHANGELOG.md</guid>
       <pubDate>Tue, 23 Jun 2026 21:03:40 +0000</pubDate>
-    </item>
-    <item>
-      <title>v2.1.186</title>
-      <link>https://github.com/anthropics/claude-code/blob/12281998d8c85813c4b5952ed9367784aae37d31/CHANGELOG.md</link>
-      <description>- Added `claude mcp login &lt;name&gt;` and `claude mcp logout &lt;name&gt;` to authenticate MCP servers from the CLI without opening the interactive `/mcp` menu, with `--no-browser` stdin redirect support for completing over SSH
-- Added status filtering (press `f`) to the `/workflows` agent detail view
-- Added a "Skills" section to the `/plugin` Installed tab
-- Added `teammateMode: "iterm2"` setting with a warning when auto mode cannot find the `it2` CLI
-- Added "Claude Platform on AWS - refresh credentials" option to `/login` when `awsAuthRefresh` is configured
-- `!` bash commands now trigger Claude to respond to the output automatically; set `"respondToBashCommands": false` in settings.json to keep the previous context-only behavior
-- Fixed streaming requests failing with "Content block not found" or JSON parse errors after the machine wakes from sleep
-- Fixed subagent transcript scroll position bleeding into the main transcript on exit
-- Fixed background task previews flashing raw tool names before the agent's plan loaded
-- Fixed Chrome tab-group isolation not applying when the in-product permissions gate is off for concurrent CLI sessions
-- Fixed background session recaps being duplicated; the agent's own end-of-turn summary now shows as the recap line
-- Fixed opening a background session from `claude agents` leaving the previous screen painted behind it
-- Fixed `Agent(type)` deny rules and `Agent(x,y)` allowed-types restrictions not being enforced for named subagent spawns
-- Fixed Esc and Ctrl+C not responding while background agents are still running after the main turn ends
-- Fixed misaligned option numbers in permission prompts when the option text overflows
-- Fixed pressing `x` on a finished subagent in the agent panel not dismissing it
-- Fixed a misleading "MCP server disconnected" notice for intentionally retired tools when resuming older sessions
-- Fixed `/plugin` Installed showing a "more above" indicator when already scrolled to the top
-- Fixed `~~strikethrough~~` showing literal tildes in assistant messages instead of rendering as strikethrough
-- Fixed `--tools` allowing feature-gated tools to slip through before flags loaded on a cold first launch
-- Fixed background job status in `claude agents` showing a stale "needs input" message after replying
-- Fixed a dark-theme flash when opening a background session from `claude agents` on a light terminal
-- Fixed mouse-selected text staying highlighted after deleting it in `claude agents`
-- Fixed session cost not showing for usage-based Enterprise and Team subscribers
-- Fixed agent teams: teammates spawned via tmux/pane backends now inherit the leader's `--effort` level
-- Fixed Workflow `agent({schema})` subagents looping forever on repeated schema validation failures instead of aborting after 5 attempts
-- Improved `claude mcp get` and `claude mcp remove` to suggest the closest configured server name on a typo and truncate long server lists
-- Improved memory: the agent is now reminded to compact its `MEMORY.md` index when nearing the size limit
-- Improved skill frontmatter: `display-name`, `default-enabled`, `fallback`, and `metadata.*` keys now accept kebab-case, snake_case, and camelCase
-- Improved malformed `SKILL.md` YAML frontmatter handling: loads the skill body with emp</description>
-      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/12281998d8c85813c4b5952ed9367784aae37d31/CHANGELOG.md</guid>
-      <pubDate>Mon, 22 Jun 2026 20:37:27 +0000</pubDate>
     </item>
   </channel>
 </rss>
