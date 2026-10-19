@@ -7,7 +7,14 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 18 Oct 2026 02:36:05 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 19 Oct 2026 02:49:39 +0000</lastBuildDate>
+    <item>
+      <title>v2.1.303</title>
+      <link>https://github.com/anthropics/claude-code/blob/ef7bfdca55d906929fe6b782025b93758c325074/CHANGELOG.md</link>
+      <description>- Bug fixes and reliability improvements</description>
+      <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/ef7bfdca55d906929fe6b782025b93758c325074/CHANGELOG.md</guid>
+      <pubDate>Sun, 18 Oct 2026 22:26:35 +0000</pubDate>
+    </item>
     <item>
       <title>v2.1.302</title>
       <link>https://github.com/anthropics/claude-code/blob/c017428c8c27e604840435048d5bce6a9a22c040/CHANGELOG.md</link>
@@ -3672,7 +3679,7 @@
 - A catalog entry's `headersHelper` runs only when you install or update that plugin, after its command is shown; `claude plugin install/update` ask `[y/N]` (or pass `-y`)
 - Added `claude self-hosted-runner --defer-shutdown-max-min &lt;minutes&gt;`: on SIGTERM, keep serving attached sessions, park what is left after that many minutes, then exit
 - Added `claude self-hosted-runner --proxy-authorization-command` / `--proxy-authorization-file` for egress proxies that require a freshly issued `Proxy-Authorization` header on every connection
-- Fixed unbounded memory growth in long interactive sessions: subagent tool results are now</description>
+- Fixed unbounded memory growth in lon</description>
       <guid isPermaLink="true">https://github.com/anthropics/claude-code/blob/8a8e81d098cbd0fae4ee5b9c853542945fe87016/CHANGELOG.md</guid>
       <pubDate>Thu, 20 Aug 2026 20:33:43 +0000</pubDate>
     </item>
